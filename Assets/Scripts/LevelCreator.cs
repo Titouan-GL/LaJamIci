@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -14,8 +15,8 @@ public class LevelCreator : MonoBehaviour
     [HideInInspector] public Tile[][] map;
 
     //private List<Tile> emptyTiles = new List<Tile>();
-    private List<Path> paths = new List<Path>();
-    [HideInInspector] public List<Tile> ironTiles = new List<Tile>();
+    private Dictionary<Vector2Int, Path> paths = new Dictionary<Vector2Int, Path>();
+    [HideInInspector] public Dictionary<Vector2Int, Tile> ironTiles = new Dictionary<Vector2Int, Tile>();
 
     [System.Serializable]
     public struct Tile
@@ -63,7 +64,7 @@ public class LevelCreator : MonoBehaviour
                 pos = new Vector2Int(Random.Range(0, mapSize), Random.Range(0, mapSize));
             }
             map[pos.x][pos.y].ressourceType = RessourcesType.Iron;
-            ironTiles.Add(map[pos.x][pos.y]);
+            ironTiles[pos] = map[pos.x][pos.y];
         }
 
     }
@@ -71,13 +72,18 @@ public class LevelCreator : MonoBehaviour
     private void CreateGround(Tile tile)
     {
         GameObject go = Instantiate(groundBlock, new Vector2(tile.position.x, tile.position.y) * 2, Quaternion.identity, transform);
+        if (ironTiles.ContainsKey(tile.position))
+        {
+            Debug.Log("deleted");
+            ironTiles.Remove(tile.position);
+        }
         tile.empty = true;
         map[tile.position.x][tile.position.y].empty = true;
         Path path = go.GetComponent<Path>();
         path.levelCreator = this;
         path.tile = tile;
-        path.UpdateSurrounding(new Vector2Int(tile.position.x, tile.position.y));
-        paths.Add(path);
+        path.UpdateSurrounding(tile.position);
+        paths[tile.position] = path;
         SpawnSurrounding(tile);
     }
 
@@ -101,6 +107,10 @@ public class LevelCreator : MonoBehaviour
                         GameObject go = Instantiate(ironBlock, new Vector2(pos.x, pos.y) * 2, Quaternion.identity, transform);
                         go.GetComponent<Diggable>().levelCreator = this;
                     }
+                }
+                else if (paths.ContainsKey(pos) && !(i == 0 && j == 0))
+                {
+                    paths[pos].UpdateSurrounding(pos);
                 }
             }
         }

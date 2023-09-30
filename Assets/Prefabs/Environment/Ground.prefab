@@ -129,10 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelCreator: {fileID: 0}
-  side: {fileID: 1323724820521221020, guid: 34aee77db2016fb42967b7aff66840fd, type: 3}
-  cornerIn: {fileID: 4315523120540486545, guid: 1230806c9ae9f474c91114181acfe374, type: 3}
-  cornerOut: {fileID: 4315523120540486545, guid: 1230806c9ae9f474c91114181acfe374, type: 3}
-  cornerStraight: {fileID: 4315523120540486545, guid: 1230806c9ae9f474c91114181acfe374, type: 3}
+  dirtSide: {fileID: 1323724820521221020, guid: 34aee77db2016fb42967b7aff66840fd, type: 3}
+  ironSide: {fileID: 1323724820521221020, guid: 565aa74ef2c736c4dabec86e6cac1f81, type: 3}
   tile:
     position: {x: 0, y: 0}
     empty: 0

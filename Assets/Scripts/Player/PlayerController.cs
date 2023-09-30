@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     Vector2 movement;
     bool isMoving;
 
-    private int currentWeaponIndex = 0;
+    [HideInInspector] public int currentWeaponIndex = 0;
     [SerializeField] List<Object> weapons;
     [SerializeField] private Animator screenAnimator;
 

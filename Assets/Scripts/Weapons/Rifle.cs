@@ -31,8 +31,6 @@ public class Rifle : Object
     private GameObject fireAngle2L;
     private GameObject fireAngle3R;
     private GameObject fireAngle3L;
-    [SerializeField] private LineRenderer fireLineR;
-    [SerializeField] private LineRenderer fireLineL;
 
     float fireAngleMin = 4f;
     float fireAngleMax = 15f;
@@ -52,19 +50,12 @@ public class Rifle : Object
 
     public override void SwitchIn()
     {
-        SetLines(true);
     }
 
     public override void SwitchOut()
     {
-        SetLines(false);
     }
 
-    private void SetLines(bool visible)
-    {
-        fireLineL.gameObject.SetActive(visible);
-        fireLineR.gameObject.SetActive(visible);
-    }
 
     public void Start(){
         fireLight.SetActive(false);
@@ -73,18 +64,9 @@ public class Rifle : Object
         riflePosition = rifleModel.localPosition;
         CreateFireAngle();
 
-        maxAmmo = 30;
-        currentAmmo = 30;
-        currentRecharges = 1;
-        maxRecharges = 5;
-
     }
 
     public void Update(){
-        fireLineR.SetPosition(0, fireAngle2R.transform.position);
-        fireLineR.SetPosition(1, fireAngle3R.transform.position);
-        fireLineL.SetPosition(0, fireAngle2L.transform.position);
-        fireLineL.SetPosition(1, fireAngle3L.transform.position);
 
         fireAngleR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, endRifle.rotation.eulerAngles.z + currentFireAngle));
         fireAngleL.transform.rotation = Quaternion.Euler(new Vector3(0, 0, endRifle.rotation.eulerAngles.z - currentFireAngle));
@@ -115,7 +97,6 @@ public class Rifle : Object
 
     public void NotReloading()
     {
-        SetLines(true);
         isReloading = false;
     }
 
@@ -140,7 +121,6 @@ public class Rifle : Object
 
     public override void Action2()
     {
-        SetLines(false);
         if (currentRecharges > 0 && currentAmmo < maxAmmo && !isReloading){
             rifleAnim.Play("ReloadRifle");
             isReloading = true;

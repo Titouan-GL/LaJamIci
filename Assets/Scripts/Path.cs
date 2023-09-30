@@ -6,10 +6,8 @@ public class Path : MonoBehaviour
 {
     [HideInInspector] public LevelCreator levelCreator;
 
-    public GameObject side;
-    public GameObject cornerIn;
-    public GameObject cornerOut;
-    public GameObject cornerStraight;
+    public GameObject dirtSide;
+    public GameObject ironSide;
 
     public LevelCreator.Tile tile;
 
@@ -17,30 +15,39 @@ public class Path : MonoBehaviour
     public void UpdateSurrounding(Vector2Int pos)
     {
         clearList();
-        GameObject go = null;
         if (pos.y > 0 && !levelCreator.map[pos.x][pos.y - 1].empty)
         {
-            go = Instantiate(side, transform.position, Quaternion.Euler(0f, 0f, -90f), transform);
+            InstantiateSide(Quaternion.Euler(0f, 0f, -90f), levelCreator.map[pos.x][pos.y - 1]);
         }
 
         if (pos.y < levelCreator.mapSize - 1 && !levelCreator.map[pos.x][pos.y + 1].empty)
         {
-            go = Instantiate(side, transform.position, Quaternion.Euler(0f, 0f, 90f), transform);
+            InstantiateSide(Quaternion.Euler(0f, 0f, 90f), levelCreator.map[pos.x][pos.y + 1]);
         }
 
         if (pos.x > 0 && !levelCreator.map[pos.x - 1][pos.y].empty)
         {
-            go = Instantiate(side, transform.position, Quaternion.Euler(0f, 0f, 180f), transform);
+            InstantiateSide(Quaternion.Euler(0f, 0f, 180f), levelCreator.map[pos.x - 1][pos.y]);
         }
 
         if (pos.x < levelCreator.mapSize - 1 && !levelCreator.map[pos.x + 1][pos.y].empty)
         {
-            go = Instantiate(side, transform.position, Quaternion.Euler(0f, 0f, 0f), transform);
+            InstantiateSide(Quaternion.Euler(0f, 0f, 0f), levelCreator.map[pos.x + 1][pos.y]);
         }
-        if (go != null)
+    }
+
+    private void InstantiateSide(Quaternion rotation, LevelCreator.Tile tile)
+    {
+        GameObject go = null;
+        if (tile.ressourceType == LevelCreator.RessourcesType.Dirt)
         {
-            borders.Add(go);
+            go = Instantiate(dirtSide, transform.position, rotation, transform);
         }
+        else if (tile.ressourceType == LevelCreator.RessourcesType.Iron)
+        {
+            go = Instantiate(ironSide, transform.position, rotation, transform);
+        }
+        borders.Add(go);
     }
 
     public void clearList()

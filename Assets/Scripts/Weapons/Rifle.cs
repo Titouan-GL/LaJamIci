@@ -31,6 +31,9 @@ public class Rifle : Object
     private GameObject fireAngle2L;
     private GameObject fireAngle3R;
     private GameObject fireAngle3L;
+    public AudioSource audioSource;
+    public AudioClip shootingAudioClip;
+    public AudioClip reloadAudioClip;
 
     float fireAngleMin = 4f;
     float fireAngleMax = 15f;
@@ -102,6 +105,7 @@ public class Rifle : Object
 
     public override void Use(){
         if(reloadTime <= 0 && currentAmmo > 0 && !isReloading){
+            audioSource.PlayOneShot(shootingAudioClip);
             fireLight.SetActive(true);
             lightTime = 0.05f;
             GameObject go = Instantiate(shellObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 90f))); 
@@ -122,6 +126,7 @@ public class Rifle : Object
     public override void Action2()
     {
         if (currentRecharges > 0 && currentAmmo < maxAmmo && !isReloading){
+            audioSource.PlayOneShot(reloadAudioClip);
             rifleAnim.Play("ReloadRifle");
             isReloading = true;
         }

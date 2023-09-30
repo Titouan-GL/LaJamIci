@@ -102,10 +102,6 @@ public class LevelCreator : MonoBehaviour
                         go.GetComponent<Diggable>().levelCreator = this;
                     }
                 }
-                else if()
-                {
-
-                }
             }
         }
     }

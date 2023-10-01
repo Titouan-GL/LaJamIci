@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5063534180551925483}
   m_Layer: 0
-  m_Name: IronSide
+  m_Name: tier3Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 275ef0cd3080f3048be595ee861ff16a, type: 2}
+  - {fileID: 2100000, guid: c80b6d3fba827974f98e850a52bcbfff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 5248598791123345992, guid: da2cbf1b2fa22424986125740c6132ee, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 275ef0cd3080f3048be595ee861ff16a, type: 2}
+      objectReference: {fileID: 2100000, guid: c80b6d3fba827974f98e850a52bcbfff, type: 2}
     - target: {fileID: 7668371620429699931, guid: da2cbf1b2fa22424986125740c6132ee, type: 3}
       propertyPath: m_LocalScale.x
       value: 50

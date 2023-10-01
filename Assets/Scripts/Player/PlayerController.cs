@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float moveSpeed = 5;
+    [SerializeField] GameObject craftMenu;
 
     private Rigidbody2D myRB;
     [SerializeField] Transform endRifle;
 
+    public int[] ore;
 
     Vector2 movement;
     bool isMoving;
@@ -23,12 +25,19 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ore = new int[3];
         life = lifemax;
         myRB = GetComponentInChildren<Rigidbody2D>();
     }
 
     void Update()
     {
+        if (Input.GetButtonDown("Craft"))
+        {
+            craftMenu.SetActive(true);
+            this.enabled = false;
+        }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             weapons[currentWeaponIndex].SwitchOut();
@@ -87,5 +96,10 @@ public class PlayerController : MonoBehaviour
     public void IsDamaged(int damage){
         life -= damage;
         screenAnimator.Play("DamageFade");
+    }
+
+    public void IncreaseOre(int amount, int oreTier)
+    {
+        ore[oreTier] += amount;
     }
 }

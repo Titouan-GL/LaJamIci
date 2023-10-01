@@ -15,7 +15,7 @@ public class Compass : Object
     {
 
         Vector2 closestpos = new Vector2(Mathf.Infinity, Mathf.Infinity);
-        foreach (KeyValuePair<Vector2Int, LevelCreator.Tile> kvp in levelCreator.ironTiles)
+        foreach (KeyValuePair<Vector2Int, LevelCreator.Tile> kvp in levelCreator.tier1Tiles)
         {
             Vector2Int key = kvp.Key;
             LevelCreator.Tile value = kvp.Value;

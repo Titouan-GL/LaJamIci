@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Damaging : MonoBehaviour
 {
-    public float damage = 3;
+    [SerializeField] private Pickaxe pickaxe;
+    [SerializeField] private CameraScript cam;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<Diggable>() != null)
         {
-            collision.GetComponent<Diggable>().TakeDamage(damage);
+            collision.GetComponent<Diggable>().TakeDamage(pickaxe.GetDamage());
+            cam.Shake();
         }
         gameObject.SetActive(false);
     }

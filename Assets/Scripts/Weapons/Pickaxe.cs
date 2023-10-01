@@ -5,7 +5,10 @@ using UnityEngine;
 public class Pickaxe : Object
 {
     float reloadTime = 0f;
-    float reloadTimeMax = 1f;
+
+    [SerializeField] private int[] damage;
+
+    [SerializeField] private float[] reloadTimeMax;
 
     [SerializeField] private GameObject hitbox;
 
@@ -18,6 +21,10 @@ public class Pickaxe : Object
         hitbox.SetActive(false);
     }
 
+    public int GetDamage()
+    {
+        return (damage[level]);
+    }
 
     public void FixedUpdate(){
         if(reloadTime > 0){
@@ -49,8 +56,8 @@ public class Pickaxe : Object
 
     public override void Use(){
         if(reloadTime <= 0 && !isReloading){
-            reloadTime = reloadTimeMax;
-            PickaxeAnim.Play("PickaxeAttack");
+            reloadTime = reloadTimeMax[level];
+            PickaxeAnim.Play("PickaxeAttack"+level);
         }
     }
 

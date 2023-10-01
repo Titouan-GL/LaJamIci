@@ -15,10 +15,10 @@ public class Compass : Object
     {
 
         Vector2 closestpos = new Vector2(Mathf.Infinity, Mathf.Infinity);
-        foreach (KeyValuePair<Vector2Int, LevelCreator.Tile> kvp in levelCreator.tier1Tiles)
+        foreach (KeyValuePair<Vector2Int, LevelTile> kvp in levelCreator.tier1Tiles)
         {
             Vector2Int key = kvp.Key;
-            LevelCreator.Tile value = kvp.Value;
+            LevelTile value = kvp.Value;
 
             Vector2 pos = value.position*2;
             if (Vector2.Distance(pos, arrow.position) < Vector2.Distance(closestpos, arrow.position))

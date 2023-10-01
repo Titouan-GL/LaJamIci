@@ -11,7 +11,7 @@ public class Path : MonoBehaviour
     public GameObject tier2Side;
     public GameObject tier3Side;
 
-    public LevelCreator.Tile tile;
+    public LevelTile tile;
 
     private List<GameObject> borders = new List<GameObject>();
     public void UpdateSurrounding(Vector2Int pos)
@@ -38,7 +38,7 @@ public class Path : MonoBehaviour
         }
     }
 
-    private void InstantiateSide(Quaternion rotation, LevelCreator.Tile tile)
+    private void InstantiateSide(Quaternion rotation, LevelTile levelTile)
     {
         GameObject go = null;
         if (tile.ressourceType == LevelCreator.RessourcesType.Dirt)

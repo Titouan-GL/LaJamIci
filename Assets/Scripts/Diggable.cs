@@ -8,11 +8,12 @@ public class Diggable : MonoBehaviour
 
 
     public float life = 10;
+    public bool immortal = false;
 
     public void TakeDamage(float amount)
     {
         life -= amount;
-        if (life <= 0)
+        if (life <= 0 && !immortal)
         {
             levelCreator.DestroyBlock(transform.position / 2);
         }

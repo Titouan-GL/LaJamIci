@@ -12,9 +12,9 @@ public class Rifle : Object
     public int currentRecharges;
 
     public int[] maxAmmo;
-    [HideInInspector]public int currentAmmo;
+    public int currentAmmo;
 
-    [HideInInspector] public int maxRecharges;
+    [HideInInspector] public int maxRecharges = 5;
 
     private float reloadTime = 0f;
     public float[] reloadTimeMax;

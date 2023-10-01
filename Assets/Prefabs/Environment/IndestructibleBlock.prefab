@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4875215076006463847}
   - component: {fileID: 6245777764762835761}
   - component: {fileID: 1468452550334868362}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 7085169518643597384}
   - component: {fileID: 3793535632138892333}
   - component: {fileID: 4610356701552477943}
-  m_Layer: 11
-  m_Name: IronBlock
+  m_Layer: 0
+  m_Name: IndestructibleBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,4 +175,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelCreator: {fileID: 0}
-  life: 10
+  life: 1000
+  immortal: 1

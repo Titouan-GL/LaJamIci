@@ -12,6 +12,7 @@ public class Craft : MonoBehaviour
     [HideInInspector] public int[] toolsLevel;
 
     [SerializeField] private Object[] tools;
+    [SerializeField] private Rifle rifle;
 
     private int maxToolLevel = 3;
 
@@ -62,8 +63,12 @@ public class Craft : MonoBehaviour
         tools[tool].level = (toolsLevel[tool]);
     }
 
-    public void BuyAmmo(int ressourceType, int quantity)
+    public void BuyAmmo(int ressourceType)
     {
-
+        if(playerController.ore[ressourceType] >= ammoCosts[ressourceType] && rifle.currentRecharges < rifle.maxRecharges)
+        {
+            playerController.ore[ressourceType] -= ammoCosts[ressourceType];
+            rifle.currentRecharges += 1;
+        }
     }
 }

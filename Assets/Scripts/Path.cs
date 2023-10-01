@@ -10,6 +10,7 @@ public class Path : MonoBehaviour
     public GameObject tier1Side;
     public GameObject tier2Side;
     public GameObject tier3Side;
+    public GameObject indestructibleSide;
 
     public LevelTile tile;
 
@@ -41,21 +42,25 @@ public class Path : MonoBehaviour
     private void InstantiateSide(Quaternion rotation, LevelTile levelTile)
     {
         GameObject go = null;
-        if (tile.ressourceType == LevelCreator.RessourcesType.Dirt)
+        if (levelTile.ressourceType == LevelCreator.RessourcesType.Dirt)
         {
             go = Instantiate(dirtSide, transform.position, rotation, transform);
         }
-        else if (tile.ressourceType == LevelCreator.RessourcesType.Tier1)
+        else if (levelTile.ressourceType == LevelCreator.RessourcesType.Tier1)
         {
             go = Instantiate(tier1Side, transform.position, rotation, transform);
         }
-        else if (tile.ressourceType == LevelCreator.RessourcesType.Tier2)
+        else if (levelTile.ressourceType == LevelCreator.RessourcesType.Tier2)
         {
             go = Instantiate(tier2Side, transform.position, rotation, transform);
         }
-        else if (tile.ressourceType == LevelCreator.RessourcesType.Tier3)
+        else if (levelTile.ressourceType == LevelCreator.RessourcesType.Tier3)
         {
             go = Instantiate(tier3Side, transform.position, rotation, transform);
+        }
+        else if (levelTile.ressourceType == LevelCreator.RessourcesType.Indestructible)
+        {
+            go = Instantiate(indestructibleSide, transform.position, rotation, transform);
         }
         borders.Add(go);
     }

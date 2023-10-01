@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class LevelCreator : MonoBehaviour
 {
     [SerializeField] private GameObject block;
-    [SerializeField] private GameObject ironBlock;
+    [SerializeField] private GameObject indestructibleBlock;
     [SerializeField] private GameObject groundBlock;
     [SerializeField] public int mapSize = 100;
     [SerializeField] private int numberOfTier1Tiles = 1000;
@@ -22,20 +23,26 @@ public class LevelCreator : MonoBehaviour
 
     [SerializeField] private PlayerController player;
 
-    private LevelTile tilePlayerIsOn;
+    [HideInInspector] public LevelTile tilePlayerIsOn;
+    private bool gamestarted = false;
+
+    private List<List<Vector2Int>> zones = new List<List<Vector2Int>>();
+    private Vector2Int[] zonesPlacements;
 
     public enum RessourcesType
     {
         Dirt,
         Tier1,
         Tier2,
-        Tier3
+        Tier3,
+        Indestructible
 
     }
 
     void Awake()
     {
         map = new LevelTile[mapSize][];
+        CreateZones();
 
         for (int i = 0; i < mapSize; i++)
         {
@@ -47,18 +54,13 @@ public class LevelCreator : MonoBehaviour
             map[i] = mapPart;
         }
 
-        CreateGround(map[10][10]);
-        DetectPlayerPos();
-        DestroyBlock(new Vector2Int(10, 11));
-        DestroyBlock(new Vector2Int(10, 12));
-        DestroyBlock(new Vector2Int(10, 13));
-        DestroyBlock(new Vector2Int(10, 14));
-        DestroyBlock(new Vector2Int(10, 15));
-        DestroyBlock(new Vector2Int(10, 16));
-        DestroyBlock(new Vector2Int(10, 17));
-        DestroyBlock(new Vector2Int(10, 18));
-        DestroyBlock(new Vector2Int(10, 19));
-        DestroyBlock(new Vector2Int(10, 20));
+        for (int i = 0; i < mapSize; i++)
+        {
+            map[i][0].ressourceType = RessourcesType.Indestructible;
+            map[i][mapSize-1].ressourceType = RessourcesType.Indestructible;
+            map[0][i].ressourceType = RessourcesType.Indestructible;
+            map[mapSize-1][i].ressourceType = RessourcesType.Indestructible;
+        }
 
         for (int i = 0; i < numberOfTier1Tiles; i++)
         {
@@ -92,6 +94,17 @@ public class LevelCreator : MonoBehaviour
             map[pos.x][pos.y].ressourceType = RessourcesType.Tier3;
             tier3Tiles[pos] = map[pos.x][pos.y];
         }
+
+        CreateGround(map[10][10]);
+        DetectPlayerPos();
+        DestroyBlock(new Vector2Int(48, 50));
+        DestroyBlock(new Vector2Int(49, 50));
+        DestroyBlock(new Vector2Int(50, 50));
+        DestroyBlock(new Vector2Int(49, 49));
+        DestroyBlock(new Vector2Int(49, 50));
+        DestroyBlock(new Vector2Int(51, 50));
+
+        gamestarted = true;
 
     }
 
@@ -190,7 +203,7 @@ public class LevelCreator : MonoBehaviour
                 if (pos.x < mapSize && pos.x >= 0 && pos.y < mapSize && pos.y >= 0)
                 {
                     LevelTile otherTile = map[pos.x][pos.y];
-                    if (!otherTile.empty && !otherTile.exists)
+                    if (!otherTile.empty && !otherTile.exists && otherTile.ressourceType != RessourcesType.Indestructible)
                     {
                         otherTile.exists = true;
 
@@ -199,6 +212,15 @@ public class LevelCreator : MonoBehaviour
 
                         otherTile.go = go;
 
+                    }
+                    else if(otherTile.ressourceType == RessourcesType.Indestructible)
+                    {
+                        otherTile.exists = true;
+
+                        GameObject go = Instantiate(indestructibleBlock, new Vector2(pos.x, pos.y) * 2, Quaternion.identity, transform);
+                        go.GetComponent<Diggable>().levelCreator = this;
+
+                        otherTile.go = go;
                     }
                     else if (paths.ContainsKey(pos) && !(i == 0 && j == 0))
                     {
@@ -217,19 +239,40 @@ public class LevelCreator : MonoBehaviour
         if (tier1Tiles.ContainsKey(currentTile.position))
         {
             tier1Tiles.Remove(currentTile.position);
-            player.IncreaseOre(1, 0);
+            if(gamestarted) player.IncreaseOre(1, 0);
         }
         if (tier2Tiles.ContainsKey(currentTile.position))
         {
             tier2Tiles.Remove(currentTile.position);
-            player.IncreaseOre(1, 1);
+            if (gamestarted) player.IncreaseOre(1, 1);
         }
         if (tier3Tiles.ContainsKey(currentTile.position))
         {
             tier3Tiles.Remove(currentTile.position);
-            player.IncreaseOre(1, 2);
+            if (gamestarted) player.IncreaseOre(1, 2);
         }
+        
         CreateGround(currentTile);
         UpdateNavMesh();
+    }
+
+    private void CreateZones()
+    {
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-2, 0),
+            new Vector2Int(-1, 0),
+            new Vector2Int(0, 0),
+            new Vector2Int(1, 0),
+            new Vector2Int(2, 0),
+            new Vector2Int(3, 0),
+            new Vector2Int(4, 0),
+            new Vector2Int(4, -1),
+            new Vector2Int(4, -2),
+            new Vector2Int(2, -1),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, 2),
+            new Vector2Int(0, 2),
+        });
     }
 }

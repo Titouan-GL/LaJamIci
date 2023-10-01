@@ -1819,14 +1819,16 @@ MonoBehaviour:
   ammoEmptySpriteForUI: {fileID: 4812427387297199725, guid: e111d9503e2013107a6cce2be2760238, type: 3}
   rechargeSpriteForUI: {fileID: 1856012143709638452, guid: 0bd946fb7995b00c188f131b3f64165b, type: 3}
   currentRecharges: 1
-  maxAmmo: 0a000000140000001e000000
+  maxAmmo: 000000000a000000140000001e000000
   currentAmmo: 30
   maxRecharges: 5
   reloadTimeMax:
+  - 0
   - 0.4
   - 0.2
   - 0.1
   bulletObject:
+  - {fileID: 0}
   - {fileID: 8754876923062904630, guid: 9a8a0a962ceeaf3b19bffcde5f4f6085, type: 3}
   - {fileID: 8754876923062904630, guid: 79ad1acfb4742834d8d09cc895c51d92, type: 3}
   - {fileID: 8754876923062904630, guid: 55683d8bb26a46840869acef467114b5, type: 3}
@@ -9852,7 +9854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c11c38bc89170847b620769aa309b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  pickaxe: {fileID: 2006670389}
 --- !u!1 &1677646693
 GameObject:
   m_ObjectHideFlags: 0
@@ -11104,6 +11106,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
+  damage: 0300000004000000050000000a000000
+  reloadTimeMax:
+  - 0.8
+  - 0.7
+  - 0.6
+  - 0.5
   hitbox: {fileID: 1669597884}
   PickaxeAnim: {fileID: 2006670388}
 --- !u!1 &2014501027

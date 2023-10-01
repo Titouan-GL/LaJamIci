@@ -6,15 +6,15 @@ public class AudioMovement : MonoBehaviour
 {
     public AudioSource movementSound;
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q))
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
-            movementSound.enabled = true;
+            movementSound.volume = Mathf.Lerp(movementSound.volume, 1, 0.2f);
         }
         else
         {
-            movementSound.enabled = false;
+            movementSound.volume = Mathf.Lerp(movementSound.volume, 0, 0.2f);
         }
     }
 }

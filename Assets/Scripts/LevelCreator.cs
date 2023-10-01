@@ -42,7 +42,6 @@ public class LevelCreator : MonoBehaviour
     void Awake()
     {
         map = new LevelTile[mapSize][];
-        CreateZones();
 
         for (int i = 0; i < mapSize; i++)
         {
@@ -53,6 +52,7 @@ public class LevelCreator : MonoBehaviour
             }
             map[i] = mapPart;
         }
+
 
         for (int i = 0; i < mapSize; i++)
         {
@@ -95,14 +95,15 @@ public class LevelCreator : MonoBehaviour
             tier3Tiles[pos] = map[pos.x][pos.y];
         }
 
-        CreateGround(map[10][10]);
+        CreateGround(map[50][48]);
         DetectPlayerPos();
-        DestroyBlock(new Vector2Int(48, 50));
-        DestroyBlock(new Vector2Int(49, 50));
+        DestroyBlock(new Vector2Int(50, 49));
         DestroyBlock(new Vector2Int(50, 50));
         DestroyBlock(new Vector2Int(49, 49));
         DestroyBlock(new Vector2Int(49, 50));
         DestroyBlock(new Vector2Int(51, 50));
+
+        CreateZones();
 
         gamestarted = true;
 
@@ -258,6 +259,17 @@ public class LevelCreator : MonoBehaviour
 
     private void CreateZones()
     {
+        zonesPlacements = new Vector2Int[] {
+        new Vector2Int(20, 20),
+        new Vector2Int(20, 80),
+        new Vector2Int(72, 76),
+        new Vector2Int(89, 45),
+        new Vector2Int(67, 24),
+        new Vector2Int(55, 11),
+        new Vector2Int(42, 37),
+        new Vector2Int(23, 42),
+        };
+
         zones.Add(new List<Vector2Int>
         {
             new Vector2Int(-2, 0),
@@ -274,5 +286,113 @@ public class LevelCreator : MonoBehaviour
             new Vector2Int(1, 2),
             new Vector2Int(0, 2),
         });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(0, 0),
+            new Vector2Int(-1, 0),
+            new Vector2Int(-1, 1),
+            new Vector2Int(-2, 1),
+            new Vector2Int(-1, -1),
+            new Vector2Int(-1, -2),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, -1),
+            new Vector2Int(2, -1),
+        });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-2, 0),
+            new Vector2Int(-1, 1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(0, 2),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, 0),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, 0),
+            new Vector2Int(1, -1),
+            new Vector2Int(2, 2),
+            new Vector2Int(2, 1),
+            new Vector2Int(2, 0),
+            new Vector2Int(2, -1),
+        });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-1, 0),
+            new Vector2Int(-1, -1),
+            new Vector2Int(-1, -2),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, 0),
+            new Vector2Int(0, -1),
+        });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-2, 0),
+            new Vector2Int(-2, -1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(-1, -1),
+            new Vector2Int(0, 2),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, 0),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, 0),
+            new Vector2Int(1, -1),
+            new Vector2Int(2, 0),
+        });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-1, -1),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, 0),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, 0),
+            new Vector2Int(1, -1),
+        });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-1, 0),
+            new Vector2Int(-1, -1),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, 0),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, 0),
+            new Vector2Int(1, -1),
+            new Vector2Int(2, -1),
+        });
+
+        zones.Add(new List<Vector2Int>
+        {
+            new Vector2Int(-2, 2),
+            new Vector2Int(-2, 1),
+            new Vector2Int(-1, 2),
+            new Vector2Int(-1, 1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(-1, -1),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, 0),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, 0),
+            new Vector2Int(1, -1),
+        });
+
+        foreach (var p in zonesPlacements)
+        {
+            if(zones.Count <= 0)
+            {
+                return;
+            }
+            int indice = Random.Range(0, zones.Count);
+            foreach( var z in zones[indice])
+            {
+                DestroyBlock(z + p);
+            }
+        }
     }
 }

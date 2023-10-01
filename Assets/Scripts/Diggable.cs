@@ -10,7 +10,7 @@ public class Diggable : MonoBehaviour
     public float life = 10;
     public bool immortal = false;
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         life -= amount;
         if (life <= 0 && !immortal)

@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 public abstract class Object : MonoBehaviour
 {
+    public int level = 0;
     public abstract void Use();
     public abstract void Action2();
 

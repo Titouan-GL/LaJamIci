@@ -7,7 +7,9 @@ public class Path : MonoBehaviour
     [HideInInspector] public LevelCreator levelCreator;
 
     public GameObject dirtSide;
-    public GameObject ironSide;
+    public GameObject tier1Side;
+    public GameObject tier2Side;
+    public GameObject tier3Side;
 
     public LevelCreator.Tile tile;
 
@@ -43,9 +45,17 @@ public class Path : MonoBehaviour
         {
             go = Instantiate(dirtSide, transform.position, rotation, transform);
         }
-        else if (tile.ressourceType == LevelCreator.RessourcesType.Iron)
+        else if (tile.ressourceType == LevelCreator.RessourcesType.Tier1)
         {
-            go = Instantiate(ironSide, transform.position, rotation, transform);
+            go = Instantiate(tier1Side, transform.position, rotation, transform);
+        }
+        else if (tile.ressourceType == LevelCreator.RessourcesType.Tier2)
+        {
+            go = Instantiate(tier2Side, transform.position, rotation, transform);
+        }
+        else if (tile.ressourceType == LevelCreator.RessourcesType.Tier3)
+        {
+            go = Instantiate(tier3Side, transform.position, rotation, transform);
         }
         borders.Add(go);
     }

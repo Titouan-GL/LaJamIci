@@ -9,6 +9,7 @@ public class PlayerRotation : MonoBehaviour
     private Camera cam;
     private PlayerController playerController;
     Vector2 mousePos;
+    public Transform debug;
 
 
     // Start is called before the first frame update
@@ -25,7 +26,8 @@ public class PlayerRotation : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit, Mathf.Infinity))
+        Debug.DrawLine( ray.origin, ray.origin+ray.direction *1000, Color.red);
+        if (Physics.Raycast(ray.origin, ray.direction * 1000, out hit, Mathf.Infinity))
         {
             mousePos = hit.point;
         }
@@ -39,6 +41,6 @@ public class PlayerRotation : MonoBehaviour
         Vector2 lookDir = mousePos - myRB.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         myRB.rotation = Quaternion.Lerp(Quaternion.Euler(new Vector3(0, 0, myRB.rotation)), Quaternion.Euler(new Vector3(0, 0, angle)), 0.2f * multiplierRotation).eulerAngles.z;
-        
+
     }
 }

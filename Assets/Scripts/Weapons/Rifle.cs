@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Rifle : Object
@@ -7,22 +8,26 @@ public class Rifle : Object
     public GameObject ammoSpriteForUI;
     public GameObject ammoEmptySpriteForUI;
     public GameObject rechargeSpriteForUI;
-    public int maxAmmo;
-    public int currentAmmo;
+
     public int currentRecharges;
-    public int maxRecharges;
+
+    public int[] maxAmmo;
+    [HideInInspector]public int currentAmmo;
+
+    [HideInInspector] public int maxRecharges;
+
+    private float reloadTime = 0f;
+    public float[] reloadTimeMax;
 
 
-    float reloadTime = 0f;
-    float reloadTimeMax = 0.1f;
+    [SerializeField] private GameObject[] bulletObject;
+    [SerializeField] private Transform shellPoint;
+    [SerializeField] private GameObject shellObject;
+    [SerializeField] private GameObject fireLight;
+    [SerializeField] private GameObject rechargeObject;
+
     [SerializeField] private CameraScript cam;
     [SerializeField] Transform endRifle;
-
-    [SerializeField]Transform shellPoint;
-    [SerializeField]GameObject shellObject;
-    [SerializeField]GameObject bulletObject;
-    [SerializeField]GameObject fireLight;
-    [SerializeField]GameObject rechargeObject;
     float lightTime = 0f;
 
     private GameObject fireAngleR;
@@ -63,6 +68,7 @@ public class Rifle : Object
     public void Start(){
         fireLight.SetActive(false);
         currentFireAngle = fireAngleMin;
+        currentAmmo = maxAmmo[0];
 
         riflePosition = rifleModel.localPosition;
         CreateFireAngle();
@@ -98,6 +104,15 @@ public class Rifle : Object
         }
     }
 
+    public int GetMaxAmmo()
+    {
+        return maxAmmo[level];
+    }
+    public int GetMaxAmmoLevelMax()
+    {
+        return maxAmmo[maxAmmo.Length-1];
+    }
+
     public void NotReloading()
     {
         isReloading = false;
@@ -109,9 +124,9 @@ public class Rifle : Object
             fireLight.SetActive(true);
             lightTime = 0.05f;
             GameObject go = Instantiate(shellObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 90f))); 
-            GameObject go2 = Instantiate(bulletObject, endRifle.position, Quaternion.Euler(endRifle.rotation.eulerAngles - new Vector3(0, 0, Random.Range(-currentFireAngle, currentFireAngle))));
+            GameObject go2 = Instantiate(bulletObject[level], endRifle.position, Quaternion.Euler(endRifle.rotation.eulerAngles - new Vector3(0, 0, Random.Range(-currentFireAngle, currentFireAngle))));
             cam.Shake();
-            reloadTime = reloadTimeMax;
+            reloadTime = reloadTimeMax[level];
             if(currentFireAngle < fireAngleMax){
                 currentFireAngle += decalibration;
                 if(currentFireAngle > fireAngleMax){
@@ -125,7 +140,7 @@ public class Rifle : Object
 
     public override void Action2()
     {
-        if (currentRecharges > 0 && currentAmmo < maxAmmo && !isReloading){
+        if (currentRecharges > 0 && currentAmmo < maxAmmo[level] && !isReloading){
             audioSource.PlayOneShot(reloadAudioClip);
             rifleAnim.Play("ReloadRifle");
             isReloading = true;
@@ -133,7 +148,7 @@ public class Rifle : Object
     }
 
     private void FillAmmo(){
-        currentAmmo = maxAmmo;
+        currentAmmo = maxAmmo[level];
         currentRecharges -= 1;
     }
 

@@ -5,7 +5,7 @@ using TMPro;
 
 public class Craft : MonoBehaviour
 {
-    PlayerController playerController;
+    private PlayerController playerController;
 
     [HideInInspector] public int[][][] recipes; // [tool][level][oretype]
     [HideInInspector] public int[] ammoCosts; // [tool][level][oretype]
@@ -60,5 +60,10 @@ public class Craft : MonoBehaviour
             }
         }
         tools[tool].level = (toolsLevel[tool]);
+    }
+
+    public void BuyAmmo(int ressourceType, int quantity)
+    {
+
     }
 }

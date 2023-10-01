@@ -15,7 +15,6 @@ public class Diggable : MonoBehaviour
         if (life <= 0)
         {
             levelCreator.DestroyBlock(transform.position / 2);
-            Destroy(gameObject);
         }
     }
 

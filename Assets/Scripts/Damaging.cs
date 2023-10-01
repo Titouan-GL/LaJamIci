@@ -5,7 +5,14 @@ using UnityEngine;
 public class Damaging : MonoBehaviour
 {
     [SerializeField] private Pickaxe pickaxe;
-    [SerializeField] private CameraScript cam;
+    private CameraScript cam;
+    private UtilitiesNonStatic uns;
+
+    private void Awake()
+    {
+        uns = UtilitiesStatic.GetUNS();
+        cam = uns.playerCamera;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<Diggable>() != null)

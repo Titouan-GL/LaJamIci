@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     int life;
     int lifemax = 100;
 
+    [HideInInspector] public List<int> logsIndexes;
+    [SerializeField] private Logs logScript;
+
+    [SerializeField] private MainUIScript uiScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +41,15 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Craft"))
         {
-            craftMenu.SetActive(true);
-            this.enabled = false;
+            uiScript.ActivateCraftMenu();
+        }
+        if (Input.GetButtonDown("Logs"))
+        {
+            uiScript.ActivateLogsMenu();
+        }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            uiScript.ActivateOptionMenu();
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -104,5 +115,12 @@ public class PlayerController : MonoBehaviour
     public void IncreaseOre(int amount, int oreTier)
     {
         ore[oreTier] += amount;
+    }
+
+    public void AddLog(int index)
+    {
+        logsIndexes.Add(index);
+        logScript.AddLog(index);
+        uiScript.ActivateLogsMenu();
     }
 }

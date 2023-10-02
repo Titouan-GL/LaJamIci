@@ -40,8 +40,8 @@ public class MainUIScript : MonoBehaviour
     {
         gameObject.SetActive(true);
         craftMenu.SetActive(false);
-        logsMenu.SetActive(true);
-        optionMenu.SetActive(false);
+        logsMenu.SetActive(false);
+        optionMenu.SetActive(true);
         playerController.enabled = false;
     }
 }

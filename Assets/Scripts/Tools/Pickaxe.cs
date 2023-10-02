@@ -15,8 +15,8 @@ public class Pickaxe : Object
     [SerializeField] private Animator PickaxeAnim;
 
     private bool isReloading;
-
-
+    public AudioSource audioSource;
+    public AudioClip whooshAudioClip;
     public void Awake(){
         hitbox.SetActive(false);
     }
@@ -57,6 +57,7 @@ public class Pickaxe : Object
     public override void Use(){
         if(reloadTime <= 0 && !isReloading){
             reloadTime = reloadTimeMax[level];
+            audioSource.PlayOneShot(whooshAudioClip);
             PickaxeAnim.Play("PickaxeAttack"+level);
         }
     }

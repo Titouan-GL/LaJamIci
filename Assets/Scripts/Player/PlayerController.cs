@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public List<int> logsIndexes;
     [SerializeField] private Logs logScript;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip openMenuAudioClip;
+    [SerializeField] public AudioClip hitPlayerAudioClip;
 
     [SerializeField] private MainUIScript uiScript;
     // Start is called before the first frame update
@@ -44,14 +47,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Craft"))
         {
             uiScript.ActivateCraftMenu();
+            audioSource.PlayOneShot(openMenuAudioClip);
         }
         if (Input.GetButtonDown("Logs"))
         {
             uiScript.ActivateLogsMenu();
+            audioSource.PlayOneShot(openMenuAudioClip);
         }
         if (Input.GetButtonDown("Cancel"))
         {
             uiScript.ActivateOptionMenu();
+            audioSource.PlayOneShot(openMenuAudioClip);
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -120,6 +126,7 @@ public class PlayerController : MonoBehaviour
     public void IsDamaged(float damage){
         life -= damage;
         screenAnimator.Play("DamageFade");
+        audioSource.PlayOneShot(hitPlayerAudioClip);
     }
 
     public void IncreaseOre(int amount, int oreTier)

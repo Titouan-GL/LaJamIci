@@ -14,6 +14,8 @@ public class Boss : MonoBehaviour
     private LevelCreator level;
     [SerializeField] private GameObject childobject;
     [SerializeField] private Object pickaxe;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip bossAmbAudioClip;
 
     public float speed;
     private BoxCollider2D boxCollider;
@@ -42,6 +44,7 @@ public class Boss : MonoBehaviour
         {
             if (distanceFromPlayer < distanceDamage)
             {
+                audioSource.PlayOneShot(bossAmbAudioClip);
                 player.IsDamaged((1 - (distanceFromPlayer / distanceDamage)) * damagePerSecondsMax * Time.fixedDeltaTime);
             }
             if(timeBeforeSpawn < 0)

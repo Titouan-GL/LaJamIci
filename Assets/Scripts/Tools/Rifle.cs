@@ -30,7 +30,7 @@ public class Rifle : Object
     [SerializeField] Transform endRifle;
     float lightTime = 0f;
     public AudioSource audioSource;
-    public AudioClip shootingAudioClip;
+    public AudioClip[] shootingAudioClip;
     public AudioClip reloadAudioClip;
 
     float pushbackDuration = 0.2f;
@@ -99,7 +99,7 @@ public class Rifle : Object
 
     public override void Use(){
         if(reloadTime <= 0 && currentAmmo > 0 && !isReloading){
-            audioSource.PlayOneShot(shootingAudioClip);
+            audioSource.PlayOneShot(shootingAudioClip[level-1]);
             fireLight.SetActive(true);
             lightTime = 0.05f;
             GameObject go = Instantiate(shellObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 90f))); 

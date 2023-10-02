@@ -20,9 +20,9 @@ public class LevelCreator : MonoBehaviour
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier2Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier3Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> artefactsTiles = new Dictionary<Vector2Int, LevelTile>();
-
     [SerializeField] private PlayerController player;
-
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip break_blockAudioClip;
     [HideInInspector] public LevelTile tilePlayerIsOn;
     private bool gamestarted = false;
 
@@ -266,6 +266,10 @@ public class LevelCreator : MonoBehaviour
         Vector2Int index = new Vector2Int((int)(position.x + 0.1f), (int)(position.y + 0.1f));
         LevelTile currentTile = map[index.x][index.y];
         Destroy(currentTile.go);
+        if (gamestarted)
+        {
+            audioSource.PlayOneShot(break_blockAudioClip);
+        }
         if (tier1Tiles.ContainsKey(currentTile.position))
         {
             tier1Tiles.Remove(currentTile.position);

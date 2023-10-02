@@ -1831,6 +1831,10 @@ MonoBehaviour:
   numberOfTier2Tiles: 400
   numberOfTier3Tiles: 100
   player: {fileID: 1474963599}
+  zones:
+  - {fileID: 11400000, guid: 6a83e51e7035ba34da157d886761482f, type: 2}
+  - {fileID: 11400000, guid: cbe97f82bd93e844f9e81f8af3828743, type: 2}
+  - {fileID: 11400000, guid: 4e95feaa487af744fb990a8f6858bc6d, type: 2}
 --- !u!1 &208887077
 GameObject:
   m_ObjectHideFlags: 0
@@ -4353,12 +4357,6 @@ MonoBehaviour:
   logParent: {fileID: 306536160}
   logFullDisplay: {fileID: 412129421}
   logFound: 0
-  logs:
-  - log 1
-  - blabliblou je suis le log 2
-  logsTitles:
-  - titre 1
-  - titr 2
 --- !u!1 &546659293
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7448510076679446517}
   - component: {fileID: 8281125193020715717}
   m_Layer: 11
-  m_Name: Body
+  m_Name: Body 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,4 +168,4 @@ MonoBehaviour:
   life: 1
   immortal: 0
   playerController: {fileID: 0}
-  logNumber: 0
+  logNumber: 6

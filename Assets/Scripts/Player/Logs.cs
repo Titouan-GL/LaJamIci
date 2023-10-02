@@ -13,15 +13,15 @@ public class Logs : MonoBehaviour
     [SerializeField] private GameObject logFullDisplay;
     [HideInInspector] public int logFound = 0;
 
-    [HideInInspector] public List<string> logs = new List<string>()
+    [HideInInspector] private List<string> logs = new List<string>()
     {
         "log 1",
         "blabliblou je suis le log 2",
     };
 
-    [HideInInspector] public List<string> logsTitles = new List<string>()
+    [HideInInspector] private List<string> logsTitles = new List<string>()
     {
-        "titre 1",
+        "wouwou titre 1",
         "titre 2",
     };
 
@@ -35,7 +35,7 @@ public class Logs : MonoBehaviour
         Button button = go.GetComponentInChildren<Button>();
         button.onClick.AddListener(() => { SetText(index); });
         logFound++;
-        displayLog(true);
+        SetText(index);
     }
 
     public void SetText(int logIndex)

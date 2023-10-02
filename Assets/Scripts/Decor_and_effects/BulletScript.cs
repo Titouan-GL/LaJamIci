@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public float damage = 1f;
-    float speed = 200f;
+    float speed = 100f;
     Rigidbody2D rb;
     [SerializeField] GameObject Explosion;
     // Start is called before the first frame update
@@ -26,7 +26,11 @@ public class BulletScript : MonoBehaviour
         {
             collision.collider.GetComponent<Diggable>().TakeDamage(damage);
         }
-        GameObject go2 = Instantiate(Explosion, collision.GetContact(0).point, Quaternion.identity); 
+        if (collision.collider.GetComponent<EnnemyFollow>() != null)
+        {
+            collision.collider.GetComponent<EnnemyFollow>().TakeDamage(damage);
+        }
+        GameObject go2 = Instantiate(Explosion, collision.contacts[0].point, Quaternion.identity); 
         Destroy(gameObject);
     }
 }

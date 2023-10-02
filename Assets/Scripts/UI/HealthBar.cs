@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
+    private PlayerController player;
+    private UtilitiesNonStatic uns;
     [SerializeField] RectTransform barCurrent;
     [SerializeField] RectTransform barEmpty;
     float maxwidth;
     float baseXpos;
-    [SerializeField] PlayerController player;
 
-    void Start(){
+    void Awake(){
+        uns = UtilitiesStatic.GetUNS();
+        player = uns.player;
         maxwidth = barEmpty.sizeDelta.x;
         baseXpos = barCurrent.anchoredPosition.x;
     }

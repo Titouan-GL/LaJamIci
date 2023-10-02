@@ -58,10 +58,12 @@ public class Rifle : Object
 
     public override void SwitchIn()
     {
+        isReloading = false;
     }
 
     public override void SwitchOut()
     {
+        isReloading = false;
     }
 
 
@@ -125,6 +127,7 @@ public class Rifle : Object
             lightTime = 0.05f;
             GameObject go = Instantiate(shellObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 90f))); 
             GameObject go2 = Instantiate(bulletObject[level], endRifle.position, Quaternion.Euler(endRifle.rotation.eulerAngles - new Vector3(0, 0, Random.Range(-currentFireAngle, currentFireAngle))));
+            go2.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             cam.Shake();
             reloadTime = reloadTimeMax[level];
             if(currentFireAngle < fireAngleMax){

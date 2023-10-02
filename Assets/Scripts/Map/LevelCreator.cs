@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class LevelCreator : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class LevelCreator : MonoBehaviour
     [HideInInspector] public LevelTile[][] map;
 
     //private List<Tile> emptyTiles = new List<Tile>();
-    private Dictionary<Vector2Int, Path> paths = new Dictionary<Vector2Int, Path>();
+    [HideInInspector] public Dictionary<Vector2Int, Path> paths = new Dictionary<Vector2Int, Path>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier1Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier2Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier3Tiles = new Dictionary<Vector2Int, LevelTile>();
@@ -261,15 +260,20 @@ public class LevelCreator : MonoBehaviour
     {
         zonesPlacements = new Vector2Int[] {
         new Vector2Int(20, 20),
-        new Vector2Int(20, 80),
-        new Vector2Int(72, 76),
-        /*new Vector2Int(89, 45),
+        new Vector2Int(20, 85),
+        new Vector2Int(61, 82),
+        new Vector2Int(89, 45),
         new Vector2Int(67, 24),
         new Vector2Int(55, 11),
-        new Vector2Int(42, 37),
-        new Vector2Int(23, 42),*/
+        new Vector2Int(91, 85),
+        new Vector2Int(80, 70),
+        new Vector2Int(11, 31),
+        new Vector2Int(44, 88),
+        new Vector2Int(12, 62),
+        new Vector2Int(39, 36),
+        new Vector2Int(8, 9),
         };
-
+        Debug.Log(zones.Count + " " + zonesPlacements.Length);
         foreach (var p in zonesPlacements)
         {
             if(zones.Count <= 0)
@@ -284,7 +288,7 @@ public class LevelCreator : MonoBehaviour
             for(int i = 0; i < zones[indice].specialObjectsInstances.Length; i++)
             {
                 Vector2 pos = new Vector2(zones[indice].specialObjectsLocations[i].x + p.x, zones[indice].specialObjectsLocations[i].y + p.y);
-                Instantiate(zones[indice].specialObjectsInstances[i], pos*2, Quaternion.identity, transform);
+                Instantiate(zones[indice].specialObjectsInstances[i], pos*2, Quaternion.Euler(0, 0, Random.Range(0,360)), transform);
             }
             zones.RemoveAt(indice);
         }

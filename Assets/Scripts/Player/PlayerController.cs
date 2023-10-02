@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Object> weapons;
     [SerializeField] private Animator screenAnimator;
 
-    int life;
-    int lifemax = 100;
+    float life;
+    float lifemax = 100;
 
     [HideInInspector] public List<int> logsIndexes;
     [SerializeField] private Logs logScript;
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         return (life*1.0f)/lifemax;
     }
 
-    public void IsDamaged(int damage){
+    public void IsDamaged(float damage){
         life -= damage;
         screenAnimator.Play("DamageFade");
     }

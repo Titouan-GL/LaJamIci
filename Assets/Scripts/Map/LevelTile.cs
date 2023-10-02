@@ -5,8 +5,7 @@ using static LevelCreator;
 
 public class LevelTile
 {
-    private UtilitiesNonStatic uns;
-    private LevelCreator levelCreator;
+    //private UtilitiesNonStatic uns;
 
     public Vector2Int position;
     public bool empty = false;
@@ -20,8 +19,7 @@ public class LevelTile
         position = newposition;
         ressourceType = newrt;
         this.parent = nextTileToPlayer;
-        uns = UtilitiesStatic.GetUNS();
-        levelCreator = uns.levelCreator;
+        //uns = UtilitiesStatic.GetUNS();
     }
 
     public int CountDistance()

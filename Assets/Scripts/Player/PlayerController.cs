@@ -30,9 +30,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Logs logScript;
 
     [SerializeField] private MainUIScript uiScript;
-    // Start is called before the first frame update
+
+
+    Animator animator;
+
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         ore = new int[3];
         life = lifemax;
         myRB = GetComponentInChildren<Rigidbody2D>();
@@ -54,10 +58,11 @@ public class PlayerController : MonoBehaviour
             uiScript.ActivateOptionMenu();
         }
 
+        weapons[currentWeaponIndex].SwitchOut();
+        weapons[currentWeaponIndex].gameObject.SetActive(false);
+        animator.SetInteger("Weapon", currentWeaponIndex);
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            weapons[currentWeaponIndex].SwitchOut();
-            weapons[currentWeaponIndex].gameObject.SetActive(false);
             currentWeaponIndex += 1;
             if (currentWeaponIndex >= weapons.Count)
             {
@@ -72,8 +77,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            weapons[currentWeaponIndex].SwitchOut();
-            weapons[currentWeaponIndex].gameObject.SetActive(false);
             currentWeaponIndex -= 1;
             if (currentWeaponIndex < 0)
             {

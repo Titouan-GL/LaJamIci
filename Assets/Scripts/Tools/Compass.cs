@@ -54,6 +54,10 @@ public class Compass : Object
         float angleRadians = Mathf.Atan2(closestpos.y - arrow.position.y, closestpos.x - arrow.position.x);
         float angleDegrees = angleRadians * Mathf.Rad2Deg;
         arrow.rotation = Quaternion.Lerp(arrow.rotation, Quaternion.Euler(0f, 0f, angleDegrees), 0.3f);
+        if(closestpos.x == Mathf.Infinity)
+        {
+            arrow.gameObject.SetActive(false);
+        }
     }
 
     public override void SwitchIn()

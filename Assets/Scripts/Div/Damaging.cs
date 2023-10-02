@@ -15,10 +15,15 @@ public class Damaging : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Diggable>() != null)
+        if (collision.GetComponent<Diggable>() != null)
         {
             collision.GetComponent<Diggable>().TakeDamage(pickaxe.GetDamage());
-            cam.Shake();
+            cam.Shake(0.5f);
+        }
+        if (collision.GetComponent<EnnemyFollow>() != null)
+        {
+            collision.GetComponent<EnnemyFollow>().TakeDamage(pickaxe.GetDamage());
+            cam.Shake(0.5f);
         }
         gameObject.SetActive(false);
     }

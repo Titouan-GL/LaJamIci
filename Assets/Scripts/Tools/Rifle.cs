@@ -121,12 +121,12 @@ public class Rifle : Object
         }
     }
 
-    private void FillAmmo(){
+    public void FillAmmo(){
         currentAmmo = maxAmmo[level];
         currentRecharges -= 1;
     }
 
-    private void EvacuateRecharge(){
+    public void EvacuateRecharge(){
         GameObject go = Instantiate(rechargeObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 0f))); 
     }
 

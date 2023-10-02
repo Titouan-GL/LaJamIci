@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -12,6 +13,10 @@ public class Boss : MonoBehaviour
     public bool active = false;
     private LevelCreator level;
     [SerializeField] private GameObject childobject;
+    [SerializeField] private Object pickaxe;
+
+    public float speed;
+    private BoxCollider2D boxCollider;
 
     public float timeBeforeSpawn;
     [SerializeField] private Vector2 respawnTimeRange;
@@ -23,10 +28,13 @@ public class Boss : MonoBehaviour
         player = uns.player;
         level = uns.levelCreator;
         ia = GetComponent<EnnemyFollow>();
+        boxCollider = GetComponentInChildren<BoxCollider2D>();
     }
 
     private void FixedUpdate()
     {
+        speed = 1+ 0.5f * pickaxe.level;
+        ia.speed = speed;
         //damages
         timeBeforeSpawn -= Time.fixedDeltaTime;
         float distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
@@ -40,13 +48,14 @@ public class Boss : MonoBehaviour
             {
                 //ia.enabled = distanceFromPlayer > 10;
             }
-            if (distanceFromPlayer > 50 || (timeBeforeSpawn < 0 && distanceFromPlayer > 30))
+            if (distanceFromPlayer > 40 || (timeBeforeSpawn < 0 && distanceFromPlayer > 20))
             {
                 active = false;
                 childobject.SetActive(false);
                 ia.enabled = false;
                 timeBeforeSpawn = Random.Range(respawnTimeRange.x, respawnTimeRange.y);
             }
+            boxCollider.enabled = player.artefacts >= 3;
         }
         else
         {

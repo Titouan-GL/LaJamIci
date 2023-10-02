@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed = 5;
+    [HideInInspector] public float moveSpeed = 5;
     [SerializeField] GameObject craftMenu;
 
     private Rigidbody2D myRB;
@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     float life;
     float lifemax = 100;
+
+    public float artefacts = 0;
 
     [HideInInspector] public List<int> logsIndexes;
     [SerializeField] private Logs logScript;

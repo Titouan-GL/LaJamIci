@@ -273,7 +273,6 @@ public class LevelCreator : MonoBehaviour
         new Vector2Int(39, 36),
         new Vector2Int(8, 9),
         };
-        Debug.Log(zones.Count + " " + zonesPlacements.Length);
         foreach (var p in zonesPlacements)
         {
             if(zones.Count <= 0)

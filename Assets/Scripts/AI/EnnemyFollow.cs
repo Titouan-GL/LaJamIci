@@ -11,6 +11,7 @@ public class EnnemyFollow : MonoBehaviour
     [HideInInspector] public LevelTile currentTile;
     public  float width = 2f;
     public float life = 20;
+    [HideInInspector]  public float speed = 3f;
 
     void Awake()
     {
@@ -32,7 +33,7 @@ public class EnnemyFollow : MonoBehaviour
 
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angleDeg), 0.1f);
 
-        transform.position += directionToTarget.normalized * 3 * Time.fixedDeltaTime;
+        transform.position += directionToTarget.normalized * speed * Time.fixedDeltaTime;
 
         FindNextdestination();
         
@@ -55,7 +56,10 @@ public class EnnemyFollow : MonoBehaviour
         Vector2Int pos = new Vector2Int((int)((transform.position.x + 1f) / 2), (int)((transform.position.y + 1f) / 2));
         LevelTile tileOn = levelCreator.map[pos.x][pos.y];
         currentTile = tileOn;
-        destination = new Vector2(tileOn.parent.position.x, tileOn.parent.position.y)*2;
+        if(tileOn.parent != null)
+        {
+            destination = new Vector2(tileOn.parent.position.x, tileOn.parent.position.y) * 2;
+        }
 
 
         raycastDir = destination - transform.position;

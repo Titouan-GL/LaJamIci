@@ -54,6 +54,8 @@ MonoBehaviour:
   - {x: 3, y: 0}
   - {x: 3, y: -1}
   specialObjectsLocations:
-  - {x: 1, y: 0}
+  - {x: 0, y: 0}
+  - {x: 2, y: 1}
   specialObjectsInstances:
-  - {fileID: 7376308640036142686, guid: d5e34e3279ce13d4e96b5faa6dd3796d, type: 3}
+  - {fileID: 9036316110456121038, guid: 8e9583c2a8a75244ebcb0abfc3dbe1c3, type: 3}
+  - {fileID: 7376308640036142686, guid: f9da1a35e8240a34a97d88a1730f96b2, type: 3}

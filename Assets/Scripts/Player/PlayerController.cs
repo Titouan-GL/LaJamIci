@@ -5,30 +5,53 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float moveSpeed = 5;
+    [SerializeField] GameObject craftMenu;
 
     private Rigidbody2D myRB;
     [SerializeField] Transform endRifle;
 
+    [HideInInspector] public Vector2Int positionOffset;
+
+    public int[] ore;
 
     Vector2 movement;
     bool isMoving;
 
-    private int currentWeaponIndex = 0;
+    [HideInInspector] public int currentWeaponIndex = 0;
     [SerializeField] List<Object> weapons;
     [SerializeField] private Animator screenAnimator;
 
     int life;
     int lifemax = 100;
 
+    [HideInInspector] public List<int> logsIndexes;
+    [SerializeField] private Logs logScript;
+
+    [SerializeField] private MainUIScript uiScript;
     // Start is called before the first frame update
     void Start()
     {
+        ore = new int[3];
         life = lifemax;
         myRB = GetComponentInChildren<Rigidbody2D>();
+        positionOffset = new Vector2Int(Random.Range(0, 100000), Random.Range(0, 10000));
     }
 
     void Update()
     {
+        if (Input.GetButtonDown("Craft"))
+        {
+            uiScript.ActivateCraftMenu();
+        }
+        if (Input.GetButtonDown("Logs"))
+        {
+            uiScript.ActivateLogsMenu();
+        }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            uiScript.ActivateOptionMenu();
+        }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             weapons[currentWeaponIndex].SwitchOut();
@@ -75,7 +98,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButton("Fire1")){
             weapons[currentWeaponIndex].Use();
         }
-        if(Input.GetButton("Reload")){
+        if(Input.GetButtonDown("Reload")){
             weapons[currentWeaponIndex].Action2();
         }
     }
@@ -87,5 +110,17 @@ public class PlayerController : MonoBehaviour
     public void IsDamaged(int damage){
         life -= damage;
         screenAnimator.Play("DamageFade");
+    }
+
+    public void IncreaseOre(int amount, int oreTier)
+    {
+        ore[oreTier] += amount;
+    }
+
+    public void AddLog(int index)
+    {
+        logsIndexes.Add(index);
+        logScript.AddLog(index);
+        uiScript.ActivateLogsMenu();
     }
 }

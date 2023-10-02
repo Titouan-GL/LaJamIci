@@ -35,6 +35,10 @@ public class Compass : Object
         {
             searchedTiles = levelCreator.tier3Tiles;
         }
+        if (oreTargeted == 3)
+        {
+            searchedTiles = levelCreator.artefactsTiles;
+        }
         foreach (KeyValuePair<Vector2Int, LevelTile> kvp in searchedTiles)
         {
             Vector2Int key = kvp.Key;

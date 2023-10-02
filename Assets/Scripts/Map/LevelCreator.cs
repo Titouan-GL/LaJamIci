@@ -19,6 +19,7 @@ public class LevelCreator : MonoBehaviour
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier1Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier2Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier3Tiles = new Dictionary<Vector2Int, LevelTile>();
+    [HideInInspector] public Dictionary<Vector2Int, LevelTile> artefactsTiles = new Dictionary<Vector2Int, LevelTile>();
 
     [SerializeField] private PlayerController player;
 
@@ -231,6 +232,12 @@ public class LevelCreator : MonoBehaviour
         }
     }
 
+    public void GetArtefact(Vector2 position)
+    {
+        Vector2Int index = new Vector2Int((int)(position.x + 0.1f), (int)(position.y + 0.1f));
+        artefactsTiles.Remove(index);
+    }
+
     public void DestroyBlock(Vector2 position)
     {
         Vector2Int index = new Vector2Int((int)(position.x + 0.1f), (int)(position.y + 0.1f));
@@ -287,7 +294,11 @@ public class LevelCreator : MonoBehaviour
             for(int i = 0; i < zones[indice].specialObjectsInstances.Length; i++)
             {
                 Vector2 pos = new Vector2(zones[indice].specialObjectsLocations[i].x + p.x, zones[indice].specialObjectsLocations[i].y + p.y);
-                Instantiate(zones[indice].specialObjectsInstances[i], pos*2, Quaternion.Euler(0, 0, Random.Range(0,360)), transform);
+                GameObject go = Instantiate(zones[indice].specialObjectsInstances[i], pos*2, Quaternion.Euler(0, 0, Random.Range(0,360)), transform);
+                if(go.GetComponent<ArtefactScript>() != null)
+                {
+                    artefactsTiles[p] = map[p.x][p.y];
+                }
             }
             zones.RemoveAt(indice);
         }

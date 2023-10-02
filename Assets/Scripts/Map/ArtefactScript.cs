@@ -11,6 +11,7 @@ public class ArtefactScript : Diggable
     {
         uns = UtilitiesStatic.GetUNS();
         playerController = uns.player;
+        levelCreator = uns.levelCreator;
     }
 
     public override void TakeDamage(float amount)
@@ -19,6 +20,7 @@ public class ArtefactScript : Diggable
         if (life <= 0)
         {
             playerController.artefacts++;
+            levelCreator.GetArtefact(transform.position / 2);
             Destroy(gameObject);
         }
     }

@@ -63,6 +63,10 @@ public class PlayerController : MonoBehaviour
             {
                 currentWeaponIndex = 0;
             }
+            if (currentWeaponIndex == 1 && weapons[1].level == 0)
+            {
+                currentWeaponIndex = 2;
+            }
             weapons[currentWeaponIndex].gameObject.SetActive(true);
             weapons[currentWeaponIndex].SwitchIn();
         }
@@ -74,6 +78,10 @@ public class PlayerController : MonoBehaviour
             if (currentWeaponIndex < 0)
             {
                 currentWeaponIndex = weapons.Count-1;
+            }
+            if (currentWeaponIndex == 1 && weapons[1].level == 0)
+            {
+                currentWeaponIndex = 0;
             }
             weapons[currentWeaponIndex].gameObject.SetActive(true);
             weapons[currentWeaponIndex].SwitchIn();

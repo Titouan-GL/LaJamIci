@@ -1967,7 +1967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &208887078
 Transform:
   m_ObjectHideFlags: 0
@@ -2071,13 +2071,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97ffe1a715a129187aa9ef7cac5d31be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 2
+  level: 0
   ammoSpriteForUI: {fileID: 7684114654776268223, guid: 41d788918b7913343b105e48cace2ab0, type: 3}
   ammoEmptySpriteForUI: {fileID: 4812427387297199725, guid: e111d9503e2013107a6cce2be2760238, type: 3}
   rechargeSpriteForUI: {fileID: 1856012143709638452, guid: 0bd946fb7995b00c188f131b3f64165b, type: 3}
   currentRecharges: 1
   maxAmmo: 000000000a000000140000001e000000
-  currentAmmo: 30
+  currentAmmo: 0
   maxRecharges: 5
   reloadTimeMax:
   - 0
@@ -10955,8 +10955,8 @@ MonoBehaviour:
   ore: 
   currentWeaponIndex: 0
   weapons:
-  - {fileID: 208887081}
   - {fileID: 2006670389}
+  - {fileID: 208887081}
   - {fileID: 1271109368}
   screenAnimator: {fileID: 639192524}
   artefacts: 0
@@ -14025,7 +14025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2006670385
 Transform:
   m_ObjectHideFlags: 0
@@ -14128,7 +14128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d8fb14e84c5154489d3bebeac5d430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 3
+  level: 0
   damage: 0300000004000000050000000a000000
   reloadTimeMax:
   - 0.8

@@ -5194,8 +5194,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5432,6 +5432,10 @@ PrefabInstance:
     - target: {fileID: 7085169518643597384, guid: 532dd3ef38380c74693d98f8d43edfcb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281125193020715717, guid: 532dd3ef38380c74693d98f8d43edfcb, type: 3}
+      propertyPath: logNumber
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9036316110456121038, guid: 532dd3ef38380c74693d98f8d43edfcb, type: 3}
       propertyPath: m_Name
@@ -10194,9 +10198,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: eb468d9c18549a14e8765dbeaca26638, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9ee2abe5c0c35a34cbe79331d0e74d9b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.491
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -33,7 +33,6 @@ public class Rifle : Object
     public AudioClip shootingAudioClip;
     public AudioClip reloadAudioClip;
 
-    float currentFireAngle;
     float pushbackDuration = 0.2f;
 
     public AnimationCurve curve;

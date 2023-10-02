@@ -20,5 +20,7 @@ MonoBehaviour:
   - {x: 1, y: 1}
   - {x: 1, y: 0}
   - {x: 1, y: -1}
-  specialObjectsLocations: []
-  specialObjectsInstances: []
+  specialObjectsLocations:
+  - {x: 1, y: 1}
+  specialObjectsInstances:
+  - {fileID: 7376308640036142686, guid: f9da1a35e8240a34a97d88a1730f96b2, type: 3}

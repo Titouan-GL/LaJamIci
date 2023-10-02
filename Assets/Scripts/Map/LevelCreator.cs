@@ -105,6 +105,29 @@ public class LevelCreator : MonoBehaviour
 
         CreateZones();
 
+        //CreateGround(map[50][48]);
+        DetectPlayerPos();
+        DestroyBlock(new Vector2Int(2, 97));
+        DestroyBlock(new Vector2Int(2, 96));
+        DestroyBlock(new Vector2Int(2, 95));
+        DestroyBlock(new Vector2Int(3, 97));
+        DestroyBlock(new Vector2Int(3, 96));
+        DestroyBlock(new Vector2Int(3, 95));
+        DestroyBlock(new Vector2Int(3, 94));
+        DestroyBlock(new Vector2Int(4, 96));
+        DestroyBlock(new Vector2Int(4, 95));
+        DestroyBlock(new Vector2Int(4, 94));
+        DestroyBlock(new Vector2Int(4, 93));
+        DestroyBlock(new Vector2Int(5, 97));
+        DestroyBlock(new Vector2Int(5, 96));
+        DestroyBlock(new Vector2Int(5, 95));
+        DestroyBlock(new Vector2Int(5, 94));
+        DestroyBlock(new Vector2Int(6, 97));
+        DestroyBlock(new Vector2Int(6, 96));
+        DestroyBlock(new Vector2Int(6, 95));
+
+        CreateZones();
+
         gamestarted = true;
 
     }

@@ -10,6 +10,7 @@ public class MainUIScript : MonoBehaviour
     [SerializeField] GameObject logsMenu;
     [SerializeField] GameObject optionMenu;
 
+
     // Update is called once per frame
     void Update()
     {
@@ -17,6 +18,7 @@ public class MainUIScript : MonoBehaviour
         {
             playerController.enabled = true;
             gameObject.SetActive(false);
+            
         }
     }
 

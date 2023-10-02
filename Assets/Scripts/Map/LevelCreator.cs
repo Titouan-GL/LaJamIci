@@ -20,9 +20,9 @@ public class LevelCreator : MonoBehaviour
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier2Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> tier3Tiles = new Dictionary<Vector2Int, LevelTile>();
     [HideInInspector] public Dictionary<Vector2Int, LevelTile> artefactsTiles = new Dictionary<Vector2Int, LevelTile>();
-
     [SerializeField] private PlayerController player;
-
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip break_blockAudioClip;
     [HideInInspector] public LevelTile tilePlayerIsOn;
     private bool gamestarted = false;
 
@@ -102,6 +102,29 @@ public class LevelCreator : MonoBehaviour
         DestroyBlock(new Vector2Int(49, 49));
         DestroyBlock(new Vector2Int(49, 50));
         DestroyBlock(new Vector2Int(51, 50));
+
+        CreateZones();
+
+        //CreateGround(map[50][48]);
+        DetectPlayerPos();
+        DestroyBlock(new Vector2Int(2, 97));
+        DestroyBlock(new Vector2Int(2, 96));
+        DestroyBlock(new Vector2Int(2, 95));
+        DestroyBlock(new Vector2Int(3, 97));
+        DestroyBlock(new Vector2Int(3, 96));
+        DestroyBlock(new Vector2Int(3, 95));
+        DestroyBlock(new Vector2Int(3, 94));
+        DestroyBlock(new Vector2Int(4, 96));
+        DestroyBlock(new Vector2Int(4, 95));
+        DestroyBlock(new Vector2Int(4, 94));
+        DestroyBlock(new Vector2Int(4, 93));
+        DestroyBlock(new Vector2Int(5, 97));
+        DestroyBlock(new Vector2Int(5, 96));
+        DestroyBlock(new Vector2Int(5, 95));
+        DestroyBlock(new Vector2Int(5, 94));
+        DestroyBlock(new Vector2Int(6, 97));
+        DestroyBlock(new Vector2Int(6, 96));
+        DestroyBlock(new Vector2Int(6, 95));
 
         CreateZones();
 
@@ -243,6 +266,10 @@ public class LevelCreator : MonoBehaviour
         Vector2Int index = new Vector2Int((int)(position.x + 0.1f), (int)(position.y + 0.1f));
         LevelTile currentTile = map[index.x][index.y];
         Destroy(currentTile.go);
+        if (gamestarted)
+        {
+            audioSource.PlayOneShot(break_blockAudioClip);
+        }
         if (tier1Tiles.ContainsKey(currentTile.position))
         {
             tier1Tiles.Remove(currentTile.position);

@@ -64,11 +64,12 @@ public class PlayerController : MonoBehaviour
             audioSource.PlayOneShot(openMenuAudioClip);
         }
 
-        weapons[currentWeaponIndex].SwitchOut();
-        weapons[currentWeaponIndex].gameObject.SetActive(false);
-        animator.SetInteger("Weapon", currentWeaponIndex);
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            weapons[currentWeaponIndex].SwitchOut();
+            weapons[currentWeaponIndex].gameObject.SetActive(false);
+
             currentWeaponIndex += 1;
             if (currentWeaponIndex >= weapons.Count)
             {
@@ -83,6 +84,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            weapons[currentWeaponIndex].SwitchOut();
+            weapons[currentWeaponIndex].gameObject.SetActive(false);
+
             currentWeaponIndex -= 1;
             if (currentWeaponIndex < 0)
             {
@@ -98,6 +102,7 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
         isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+        animator.SetInteger("Weapon", currentWeaponIndex);
 
         Debug.DrawLine(endRifle.position,transform.position+(endRifle.position - transform.position)*2);
         int layerMask = 1 << 9;

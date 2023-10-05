@@ -26,10 +26,8 @@ public class Pickaxe : Object
         return (damage[level]);
     }
 
-    public void FixedUpdate(){
-        if(reloadTime > 0){
-            reloadTime -= Time.fixedDeltaTime;
-        }
+    void FixedUpdate()
+    {
     }
 
     public override void SwitchIn()
@@ -38,9 +36,12 @@ public class Pickaxe : Object
 
     public override void SwitchOut()
     {
+        DeactivateHitBox();
+        NotReloading();
     }
 
-    public void NotReloading(){
+    public void NotReloading()
+    {
         isReloading = false;
     }
 
@@ -54,11 +55,15 @@ public class Pickaxe : Object
         hitbox.SetActive(false);
     }
 
-    public override void Use(){
-        if(reloadTime <= 0 && !isReloading){
+    public override void Use()
+    {
+        PickaxeAnim.SetFloat("PickaxeLevel", level);
+        if (!isReloading)
+        {
             reloadTime = reloadTimeMax[level];
             audioSource.PlayOneShot(whooshAudioClip);
-            PickaxeAnim.Play("PickaxeAttack"+level);
+            PickaxeAnim.Play("PickaxeAttack");
+            isReloading = false;
         }
     }
 

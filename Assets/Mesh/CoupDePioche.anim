@@ -31187,7 +31187,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.93333334
-    functionName: DeactivateHitBox
+    functionName: NotReloading
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

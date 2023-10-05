@@ -5,21 +5,22 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Animation : MonoBehaviour
 {
-    [SerializeField] private GameObject pickaxeHitbox;
     [SerializeField] private Rifle rifle;
+    [SerializeField] private Pickaxe pickaxe;
 
     public void ActivateHitBox()
     {
-        pickaxeHitbox.SetActive(true);
+        pickaxe.ActivateHitBox();
     }
 
     public void DeactivateHitBox()
     {
-        pickaxeHitbox.SetActive(false);
+        pickaxe.ActivateHitBox();
     }
     public void NotReloading()
     {
         rifle.NotReloading();
+        pickaxe.NotReloading();
     }
     public void FillAmmo()
     {

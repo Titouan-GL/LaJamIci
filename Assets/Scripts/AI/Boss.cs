@@ -58,7 +58,7 @@ public class Boss : MonoBehaviour
                 ia.enabled = false;
                 timeBeforeSpawn = Random.Range(respawnTimeRange.x, respawnTimeRange.y);
             }
-            boxCollider.enabled = player.artefacts >= 3;
+            boxCollider.enabled = player.artefactsMerged;
         }
         else
         {

@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public float speed = 4;
     PlayerController player;
     [SerializeField] GameObject hitbox;
+    [SerializeField] Animator animator;
 
     public float attackSpeed = 0;
 
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
         if (distanceFromPlayer < range && attackSpeed <= 0 && attackDuration <= 0)
         {
             ia.speed = 0;
+            animator.Play("PickaxeAttack");
             hitbox.SetActive(true);
             attackSpeed = 1;
             attackDuration = 0.5f;

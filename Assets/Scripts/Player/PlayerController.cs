@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     float lifemax = 100;
 
     public float artefacts = 0;
+    public bool artefactsMerged = false;
 
     [HideInInspector] public List<int> logsIndexes;
     [SerializeField] private Logs logScript;
@@ -33,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public AudioClip hitPlayerAudioClip;
 
     [SerializeField] private MainUIScript uiScript;
+
+    [SerializeField] private GameObject riflleModel;
 
 
     Animator animator;
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             weapons[currentWeaponIndex].SwitchOut();
             weapons[currentWeaponIndex].gameObject.SetActive(false);
@@ -82,7 +85,7 @@ public class PlayerController : MonoBehaviour
             weapons[currentWeaponIndex].gameObject.SetActive(true);
             weapons[currentWeaponIndex].SwitchIn();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             weapons[currentWeaponIndex].SwitchOut();
             weapons[currentWeaponIndex].gameObject.SetActive(false);
@@ -110,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
 
         HandleShooting();
+        riflleModel.SetActive(weapons[1].level > 0);
     }
 
     void FixedUpdate()

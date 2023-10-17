@@ -12,6 +12,7 @@ public class Compass : Object
     private UtilitiesNonStatic uns;
     public int oreTargeted = 0;
 
+    [SerializeField] GameObject test;
     public void Awake()
     {
         uns = UtilitiesStatic.GetUNS();
@@ -53,6 +54,7 @@ public class Compass : Object
         }
         float angleRadians = Mathf.Atan2(closestpos.y - arrow.position.y, closestpos.x - arrow.position.x);
         float angleDegrees = angleRadians * Mathf.Rad2Deg;
+        test.transform.position = closestpos;
         arrow.rotation = Quaternion.Lerp(arrow.rotation, Quaternion.Euler(0f, 0f, angleDegrees), 0.3f);
         if(closestpos.x == Mathf.Infinity)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CraftUI : MonoBehaviour
 {
@@ -14,8 +15,22 @@ public class CraftUI : MonoBehaviour
     [SerializeField] private GameObject[] levelMaxMenus;
     [SerializeField] private PlayerController playerController;
 
+    [SerializeField] private GameObject[] artefacts;
+    [SerializeField] private GameObject[] artefactsParts;
+
+    [SerializeField] private Button artefactbutton;
+    [SerializeField] private Button[] upgradeButtons;
+    [SerializeField] private Button[] ammoButtons;
+
     [SerializeField] private Craft craft;
 
+    private int numberOfLevels = 3;
+
+
+    private void Awake()
+    {
+        setInteractables();
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,7 +40,7 @@ public class CraftUI : MonoBehaviour
             ressourceQuantityText[i].text = playerController.ore[i].ToString();
         }
 
-        if (craft.toolsLevel[0] < 3)
+        if (craft.toolsLevel[0] < numberOfLevels)
         {
             upgradeMenus[0].SetActive(true);
             levelMaxMenus[0].SetActive(false);
@@ -41,7 +56,7 @@ public class CraftUI : MonoBehaviour
         }
 
 
-        if (craft.toolsLevel[1] < 3)
+        if (craft.toolsLevel[1] < numberOfLevels)
         {
             upgradeMenus[1].SetActive(true);
             levelMaxMenus[1].SetActive(false);
@@ -57,7 +72,7 @@ public class CraftUI : MonoBehaviour
         }
 
 
-        if (craft.toolsLevel[2] < 3)
+        if (craft.toolsLevel[2] < numberOfLevels)
         {
             upgradeMenus[2].SetActive(true);
             levelMaxMenus[2].SetActive(false);
@@ -76,6 +91,36 @@ public class CraftUI : MonoBehaviour
         for(int i = 0; i < ammoCosts.Length; i++)
         {
             ammoCosts[i].text = playerController.ore[i] + "/" + craft.ammoCosts[i];
+        }
+
+        for(int i = 0; i < playerController.artefacts; i++)
+        {
+            artefactsParts[i].SetActive(true);
+        }
+        setInteractables();
+    }
+
+    public void setInteractables()
+    {
+
+        artefactbutton.interactable = playerController.artefacts >= 3;
+        for (int i = 0; i < upgradeButtons.Length; i++)
+        {
+            upgradeButtons[i].interactable = craft.CanUpgrade(i);
+        }
+        for (int i = 0; i < ammoButtons.Length; i++)
+        {
+            ammoButtons[i].interactable = craft.CanBuyAmmo(i);
+        }
+    }
+
+    public void Merge()
+    {
+        if(playerController.artefacts >= 3)
+        {
+            playerController.artefactsMerged = true;
+            artefacts[0].SetActive(false);
+            artefacts[1].SetActive(true);
         }
     }
 }

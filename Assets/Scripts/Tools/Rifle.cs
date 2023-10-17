@@ -44,6 +44,8 @@ public class Rifle : Object
 
     private bool isReloading;
 
+    private int lastLevel = 0;
+
     public override void SwitchIn()
     {
         isReloading = false;
@@ -64,9 +66,6 @@ public class Rifle : Object
     }
 
     public void Update(){
-
-
-
         if(lightTime < 0){
             lightTime = 0;
             fireLight.SetActive(false);
@@ -74,6 +73,12 @@ public class Rifle : Object
         else if(lightTime > 0){
 
             lightTime -= Time.deltaTime;
+        }
+
+        if(lastLevel != level)
+        {
+            lastLevel = level;
+            FillFreeAmmo();
         }
     }
 
@@ -103,7 +108,8 @@ public class Rifle : Object
             rifleAnim.Play("GunFire");
             fireLight.SetActive(true);
             lightTime = 0.05f;
-            GameObject go = Instantiate(shellObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 90f))); 
+            Vector3 groundPos = new Vector3(shellPoint.position.x, shellPoint.position.y, 0);
+            GameObject go = Instantiate(shellObject, groundPos, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 90f))); 
             GameObject go2 = Instantiate(bulletObject[level], endRifle.position, Quaternion.Euler(endRifle.rotation.eulerAngles));
             go2.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             cam.Shake();
@@ -127,8 +133,15 @@ public class Rifle : Object
         currentRecharges -= 1;
     }
 
-    public void EvacuateRecharge(){
-        GameObject go = Instantiate(rechargeObject, shellPoint.position, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 0f))); 
+    public void FillFreeAmmo()
+    {
+        currentAmmo = maxAmmo[level];
+    }
+
+    public void EvacuateRecharge()
+    {
+        Vector3 groundPos = new Vector3(shellPoint.position.x, shellPoint.position.y, 0);
+        GameObject go = Instantiate(rechargeObject, groundPos, Quaternion.Euler(shellPoint.rotation.eulerAngles - new Vector3(0, 0, 0f))); 
     }
 
 

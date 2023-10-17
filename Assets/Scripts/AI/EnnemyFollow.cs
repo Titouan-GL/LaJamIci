@@ -98,7 +98,6 @@ public class EnnemyFollow : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
-        Debug.Log(life);
         life -= amount;
         if (life <= 0)
         {

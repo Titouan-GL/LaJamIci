@@ -12,6 +12,7 @@ public class Compass : Object
     private UtilitiesNonStatic uns;
     public int oreTargeted = 0;
 
+    [SerializeField] GameObject test;
     public void Awake()
     {
         uns = UtilitiesStatic.GetUNS();
@@ -35,6 +36,10 @@ public class Compass : Object
         {
             searchedTiles = levelCreator.tier3Tiles;
         }
+        if (oreTargeted == 3)
+        {
+            searchedTiles = levelCreator.artefactsTiles;
+        }
         foreach (KeyValuePair<Vector2Int, LevelTile> kvp in searchedTiles)
         {
             Vector2Int key = kvp.Key;
@@ -49,7 +54,12 @@ public class Compass : Object
         }
         float angleRadians = Mathf.Atan2(closestpos.y - arrow.position.y, closestpos.x - arrow.position.x);
         float angleDegrees = angleRadians * Mathf.Rad2Deg;
+        test.transform.position = closestpos;
         arrow.rotation = Quaternion.Lerp(arrow.rotation, Quaternion.Euler(0f, 0f, angleDegrees), 0.3f);
+        if(closestpos.x == Mathf.Infinity)
+        {
+            arrow.gameObject.SetActive(false);
+        }
     }
 
     public override void SwitchIn()

@@ -23,17 +23,18 @@ public class CameraScript : MonoBehaviour
         transform.rotation = intialRotation;
     }
 
-    public void Shake(){
-        StartCoroutine(Shaking());
+    public void Shake(float power = 1)
+    {
+        StartCoroutine(Shaking(power));
     }
 
-    IEnumerator Shaking(){
+    IEnumerator Shaking(float power = 1){
         Vector3 startPosition = transform.localPosition;
         float elapsedTime = 0f;
 
         while(elapsedTime < shakeDuration){
             elapsedTime += Time.deltaTime;
-            float strength = curve.Evaluate(elapsedTime/shakeDuration);
+            float strength = curve.Evaluate(elapsedTime/shakeDuration) * power;
             transform.localPosition = startPosition + Random.insideUnitSphere * strength;
             yield return null; 
         }

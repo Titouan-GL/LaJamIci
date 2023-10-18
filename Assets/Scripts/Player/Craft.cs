@@ -49,26 +49,47 @@ public class Craft : MonoBehaviour
 
     public void Upgrade(int tool)
     {
-        if(toolsLevel[tool] < maxToolLevel ){
-            if(playerController.ore[0] >= recipes[tool][toolsLevel[tool]][0] && 
+        if(CanUpgrade(tool))
+        {
+            playerController.ore[0] -= recipes[tool][toolsLevel[tool]][0];
+            playerController.ore[1] -= recipes[tool][toolsLevel[tool]][1];
+            playerController.ore[2] -= recipes[tool][toolsLevel[tool]][2];
+            toolsLevel[tool] += 1;
+        }
+        tools[tool].level = (toolsLevel[tool]);
+
+        if(tool == 1)
+        {
+            tools[tool].gameObject.GetComponent<Rifle>().FillFreeAmmo();
+        }
+    }
+
+    public bool CanUpgrade(int tool)
+    {
+
+        if (toolsLevel[tool] < maxToolLevel)
+        {
+            if (playerController.ore[0] >= recipes[tool][toolsLevel[tool]][0] &&
                 playerController.ore[1] >= recipes[tool][toolsLevel[tool]][1] &&
                 playerController.ore[2] >= recipes[tool][toolsLevel[tool]][2])
             {
-                playerController.ore[0] -= recipes[tool][toolsLevel[tool]][0];
-                playerController.ore[1] -= recipes[tool][toolsLevel[tool]][1];
-                playerController.ore[2] -= recipes[tool][toolsLevel[tool]][2];
-                toolsLevel[tool] += 1;
+                return true;
             }
         }
-        tools[tool].level = (toolsLevel[tool]);
+        return false;
     }
 
     public void BuyAmmo(int ressourceType)
     {
-        if(playerController.ore[ressourceType] >= ammoCosts[ressourceType] && rifle.currentRecharges < rifle.maxRecharges)
+        if(CanBuyAmmo(ressourceType))
         {
             playerController.ore[ressourceType] -= ammoCosts[ressourceType];
             rifle.currentRecharges += 1;
         }
+    }
+    public bool CanBuyAmmo(int ressourceType)
+    {
+
+        return playerController.ore[ressourceType] >= ammoCosts[ressourceType] && rifle.currentRecharges < rifle.maxRecharges;
     }
 }

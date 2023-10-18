@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed = 5;
+    [HideInInspector] public float moveSpeed = 5;
     [SerializeField] GameObject craftMenu;
 
     private Rigidbody2D myRB;
@@ -21,16 +21,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Object> weapons;
     [SerializeField] private Animator screenAnimator;
 
-    int life;
-    int lifemax = 100;
+    float life;
+    float lifemax = 100;
+
+    public float artefacts = 0;
+    public bool artefactsMerged = false;
 
     [HideInInspector] public List<int> logsIndexes;
     [SerializeField] private Logs logScript;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip openMenuAudioClip;
+    [SerializeField] public AudioClip hitPlayerAudioClip;
 
     [SerializeField] private MainUIScript uiScript;
-    // Start is called before the first frame update
+
+    [SerializeField] private GameObject riflleModel;
+
+
+    Animator animator;
+
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         ore = new int[3];
         life = lifemax;
         myRB = GetComponentInChildren<Rigidbody2D>();
@@ -42,36 +54,50 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Craft"))
         {
             uiScript.ActivateCraftMenu();
+            audioSource.PlayOneShot(openMenuAudioClip);
         }
         if (Input.GetButtonDown("Logs"))
         {
             uiScript.ActivateLogsMenu();
+            audioSource.PlayOneShot(openMenuAudioClip);
         }
         if (Input.GetButtonDown("Cancel"))
         {
             uiScript.ActivateOptionMenu();
+            audioSource.PlayOneShot(openMenuAudioClip);
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             weapons[currentWeaponIndex].SwitchOut();
             weapons[currentWeaponIndex].gameObject.SetActive(false);
+
             currentWeaponIndex += 1;
             if (currentWeaponIndex >= weapons.Count)
             {
                 currentWeaponIndex = 0;
             }
+            if (currentWeaponIndex == 1 && weapons[1].level == 0)
+            {
+                currentWeaponIndex = 2;
+            }
             weapons[currentWeaponIndex].gameObject.SetActive(true);
             weapons[currentWeaponIndex].SwitchIn();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             weapons[currentWeaponIndex].SwitchOut();
             weapons[currentWeaponIndex].gameObject.SetActive(false);
+
             currentWeaponIndex -= 1;
             if (currentWeaponIndex < 0)
             {
                 currentWeaponIndex = weapons.Count-1;
+            }
+            if (currentWeaponIndex == 1 && weapons[1].level == 0)
+            {
+                currentWeaponIndex = 0;
             }
             weapons[currentWeaponIndex].gameObject.SetActive(true);
             weapons[currentWeaponIndex].SwitchIn();
@@ -79,6 +105,7 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
         isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+        animator.SetInteger("Weapon", currentWeaponIndex);
 
         Debug.DrawLine(endRifle.position,transform.position+(endRifle.position - transform.position)*2);
         int layerMask = 1 << 9;
@@ -86,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
 
         HandleShooting();
+        riflleModel.SetActive(weapons[1].level > 0);
     }
 
     void FixedUpdate()
@@ -107,9 +135,10 @@ public class PlayerController : MonoBehaviour
         return (life*1.0f)/lifemax;
     }
 
-    public void IsDamaged(int damage){
+    public void IsDamaged(float damage){
         life -= damage;
         screenAnimator.Play("DamageFade");
+        audioSource.PlayOneShot(hitPlayerAudioClip);
     }
 
     public void IncreaseOre(int amount, int oreTier)

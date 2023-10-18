@@ -47,7 +47,7 @@ public class Logs : MonoBehaviour
         GameObject go = Instantiate(logPrefab);
         RectTransform rectTransform = go.GetComponent<RectTransform>();
         go.transform.SetParent(logParent);
-        rectTransform.anchoredPosition = new Vector2(0, -35 - (40 * logFound));
+        rectTransform.anchoredPosition = new Vector2(-20, -80 - (50 * logFound));
         go.GetComponentInChildren<TextMeshProUGUI>().text = logsTitles[index];
         Button button = go.GetComponentInChildren<Button>();
         button.onClick.AddListener(() => { SetText(index); });
@@ -60,6 +60,7 @@ public class Logs : MonoBehaviour
         textLog.text = logs[logIndex];
         logTitle.text = logsTitles[logIndex];
         displayLog(true);
+        logFullDisplay.GetComponent<MenuOpen>().OpenSelf();
     }
 
     public void displayLog(bool b)

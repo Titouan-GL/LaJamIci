@@ -10,6 +10,8 @@ public class AmmoDisplay : MonoBehaviour
     List<GameObject> ammoDisplayed = new List<GameObject>();
     List<GameObject> ammoEmptyDisplayed = new List<GameObject>();
     public List<GameObject> rechargesDisplayed = new List<GameObject>();
+    private float topOffset = 50;
+    private float leftOffset = 125;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,19 +19,21 @@ public class AmmoDisplay : MonoBehaviour
 
         for(int i = 0; i < currentWeapon.GetMaxAmmoLevelMax(); i ++){
             GameObject go = Instantiate(currentWeapon.ammoSpriteForUI, transform.parent);
-            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(15 + i*(go.GetComponent<RectTransform>().sizeDelta.x + 5), -go.GetComponent<RectTransform>().sizeDelta.y/2 -50);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(leftOffset + i*(go.GetComponent<RectTransform>().sizeDelta.x + 5), - topOffset);
             ammoDisplayed.Add(go);
         }
         for(int i = 0; i < currentWeapon.GetMaxAmmoLevelMax(); i ++){
             GameObject go = Instantiate(currentWeapon.ammoEmptySpriteForUI, transform.parent);
-            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(15 + i*(go.GetComponent<RectTransform>().sizeDelta.x + 5), -go.GetComponent<RectTransform>().sizeDelta.y/2 -50);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(leftOffset + i*(go.GetComponent<RectTransform>().sizeDelta.x + 5), - topOffset);
             ammoEmptyDisplayed.Add(go);
             go.SetActive(false);
         }
-        float currentDistance = 15 + (currentWeapon.GetMaxAmmoLevelMax() + 1)*(currentWeapon.ammoSpriteForUI.GetComponent<RectTransform>().sizeDelta.x + 5);
-        for(int i = 0; i < currentWeapon.maxRecharges; i ++){
+
+        float currentDistanceY = topOffset + (currentWeapon.ammoSpriteForUI.GetComponent<RectTransform>().sizeDelta.y) + 15;
+
+        for (int i = 0; i < currentWeapon.maxRecharges; i ++){
             GameObject go = Instantiate(currentWeapon.rechargeSpriteForUI, transform.parent);
-            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentDistance + 15 + i*(go.GetComponent<RectTransform>().sizeDelta.x + 5), -go.GetComponent<RectTransform>().sizeDelta.y/2 -50);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(leftOffset + i*(go.GetComponent<RectTransform>().sizeDelta.x + 5), - currentDistanceY);
             rechargesDisplayed.Add(go);
         }
     }

@@ -18,6 +18,4 @@ public class Diggable : MonoBehaviour
             levelCreator.DestroyBlock(transform.position / 2);
         }
     }
-
-
 }

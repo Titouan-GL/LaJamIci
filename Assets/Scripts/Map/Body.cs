@@ -5,7 +5,14 @@ using UnityEngine;
 public class Body : Diggable
 {
     [HideInInspector] public PlayerController playerController;
+    private UtilitiesNonStatic uns;
     public int logNumber;
+
+    public void Awake()
+    {
+        uns = UtilitiesStatic.GetUNS();
+        playerController = uns.player;
+    }
 
     public override void TakeDamage(float amount)
     {

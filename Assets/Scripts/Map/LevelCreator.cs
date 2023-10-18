@@ -23,6 +23,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] public AudioSource audioSource;
     [SerializeField] public AudioClip break_blockAudioClip;
+    [SerializeField] public AudioClip[] ore_blockAudioClips;
     [HideInInspector] public LevelTile tilePlayerIsOn;
     private bool gamestarted = false;
 
@@ -266,24 +267,36 @@ public class LevelCreator : MonoBehaviour
         Vector2Int index = new Vector2Int((int)(position.x + 0.1f), (int)(position.y + 0.1f));
         LevelTile currentTile = map[index.x][index.y];
         Destroy(currentTile.go);
-        if (gamestarted)
-        {
-            audioSource.PlayOneShot(break_blockAudioClip);
-        }
         if (tier1Tiles.ContainsKey(currentTile.position))
         {
             tier1Tiles.Remove(currentTile.position);
-            if(gamestarted) player.IncreaseOre(1, 0);
+            if (gamestarted)
+            {
+                player.IncreaseOre(1, 0);
+                audioSource.PlayOneShot(ore_blockAudioClips[0]);
+            }
         }
-        if (tier2Tiles.ContainsKey(currentTile.position))
+        else if (tier2Tiles.ContainsKey(currentTile.position))
         {
             tier2Tiles.Remove(currentTile.position);
-            if (gamestarted) player.IncreaseOre(1, 1);
+            if (gamestarted)
+            {
+                player.IncreaseOre(1, 1);
+                audioSource.PlayOneShot(ore_blockAudioClips[1]);
+            }
         }
-        if (tier3Tiles.ContainsKey(currentTile.position))
+        else if (tier3Tiles.ContainsKey(currentTile.position))
         {
             tier3Tiles.Remove(currentTile.position);
-            if (gamestarted) player.IncreaseOre(1, 2);
+            if (gamestarted) 
+            { 
+                player.IncreaseOre(1, 2);
+                audioSource.PlayOneShot(ore_blockAudioClips[2]);
+            }
+        }
+        else if (gamestarted)
+        {
+            audioSource.PlayOneShot(break_blockAudioClip);
         }
         
         CreateGround(currentTile);

@@ -31,7 +31,10 @@ public class EnnemyFollow : MonoBehaviour
 
         float angleDeg = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angleDeg), 0.1f);
+        if(destination != transform.position)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angleDeg), 0.1f);
+        }
 
         transform.position += directionToTarget.normalized * speed * Time.fixedDeltaTime;
 

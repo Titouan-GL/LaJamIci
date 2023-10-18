@@ -63,7 +63,7 @@ public class Pickaxe : Object
             reloadTime = reloadTimeMax[level];
             audioSource.PlayOneShot(whooshAudioClip);
             PickaxeAnim.Play("PickaxeAttack");
-            isReloading = false;
+            isReloading = true;
         }
     }
 

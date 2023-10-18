@@ -15,7 +15,7 @@ public class Animation : MonoBehaviour
 
     public void DeactivateHitBox()
     {
-        pickaxe.ActivateHitBox();
+        pickaxe.DeactivateHitBox();
     }
     public void NotReloading()
     {

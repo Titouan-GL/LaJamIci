@@ -16,6 +16,8 @@ public class Craft : MonoBehaviour
 
     private int maxToolLevel = 3;
 
+    [HideInInspector] public int healCost = 2;
+
     public void Awake()
     {
         int[][] recipesTool1;
@@ -44,6 +46,7 @@ public class Craft : MonoBehaviour
 
         toolsLevel = new int[] { 0, 0, 0 };
         ammoCosts = new int[] { 6, 2, 0 };
+
         playerController = GetComponentInChildren<PlayerController>();
     }
 
@@ -91,5 +94,18 @@ public class Craft : MonoBehaviour
     {
 
         return playerController.ore[ressourceType] >= ammoCosts[ressourceType] && rifle.currentRecharges < rifle.maxRecharges;
+    }
+    public void Heal()
+    {
+        if (CanHeal())
+        {
+            playerController.ore[2] -= healCost;
+            playerController.life = playerController.lifemax;
+        }
+    }
+    public bool CanHeal()
+    {
+
+        return playerController.ore[2] >= healCost && playerController.life < playerController.lifemax;
     }
 }

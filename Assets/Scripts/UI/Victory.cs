@@ -6,16 +6,13 @@ public class Victory : MonoBehaviour
 {
     public GameObject boss;
     public MenuOpen victoryScreen;
+    public MenuOpen defeatScreen;
     public PlayerController playerController;
 
     float timer = 5;
 
     private void Update()
     {
-        if (boss.gameObject == null)
-        {
-            timer -= Time.deltaTime;
-        }
 
         if(timer < 0)
         {
@@ -24,5 +21,17 @@ public class Victory : MonoBehaviour
             victoryScreen.OpenSelf();
             this.enabled = false;
         }
+        else if (boss.gameObject == null)
+        {
+            timer -= Time.deltaTime;
+        }
+        else if (playerController.life < 0)
+        {
+            defeatScreen.gameObject.SetActive(true);
+            defeatScreen.OpenSelf();
+            this.enabled = false;
+        }
+
+
     }
 }

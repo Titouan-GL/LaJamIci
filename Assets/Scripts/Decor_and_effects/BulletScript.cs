@@ -22,10 +22,6 @@ public class BulletScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.GetComponent<Diggable>() != null)
-        {
-            collision.collider.GetComponent<Diggable>().TakeDamage(damage);
-        }
         if (collision.collider.GetComponent<EnnemyFollow>() != null)
         {
             collision.collider.GetComponent<EnnemyFollow>().TakeDamage(damage);

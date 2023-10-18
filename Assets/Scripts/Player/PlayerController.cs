@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Object> weapons;
     [SerializeField] private Animator screenAnimator;
 
-    float life;
-    float lifemax = 100;
+    [HideInInspector] public float life;
+    [HideInInspector] public float lifemax = 100;
 
     public float artefacts = 0;
     public bool artefactsMerged = false;
@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
         isMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
         animator.SetInteger("Weapon", currentWeaponIndex);
 
+
         Debug.DrawLine(endRifle.position,transform.position+(endRifle.position - transform.position)*2);
         int layerMask = 1 << 9;
         layerMask += 1 << 17;
@@ -138,7 +139,6 @@ public class PlayerController : MonoBehaviour
     public void IsDamaged(float damage){
         life -= damage;
         screenAnimator.Play("DamageFade");
-        audioSource.PlayOneShot(hitPlayerAudioClip);
     }
 
     public void IncreaseOre(int amount, int oreTier)

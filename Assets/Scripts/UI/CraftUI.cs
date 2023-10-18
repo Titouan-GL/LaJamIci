@@ -22,6 +22,9 @@ public class CraftUI : MonoBehaviour
     [SerializeField] private Button[] upgradeButtons;
     [SerializeField] private Button[] ammoButtons;
 
+    [SerializeField] private Button healButton;
+    [SerializeField] private TextMeshProUGUI healText;
+
     [SerializeField] private Craft craft;
 
     private int numberOfLevels = 3;
@@ -29,13 +32,13 @@ public class CraftUI : MonoBehaviour
 
     private void Awake()
     {
-        setInteractables();
+        SetInteractables();
     }
 
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < ressourceQuantityText.Length; i++)
+        for (int i = 0; i < ressourceQuantityText.Length; i++)
         {
             ressourceQuantityText[i].text = playerController.ore[i].ToString();
         }
@@ -97,10 +100,11 @@ public class CraftUI : MonoBehaviour
         {
             artefactsParts[i].SetActive(true);
         }
-        setInteractables();
+        SetInteractables();
+        SetHealable();
     }
 
-    public void setInteractables()
+    public void SetInteractables()
     {
 
         artefactbutton.interactable = playerController.artefacts >= 3;
@@ -122,5 +126,11 @@ public class CraftUI : MonoBehaviour
             artefacts[0].SetActive(false);
             artefacts[1].SetActive(true);
         }
+    }
+
+    public void SetHealable()
+    {
+        healButton.interactable = craft.CanHeal();
+        healText.text = playerController.ore[2] + "/" + craft.healCost;
     }
 }

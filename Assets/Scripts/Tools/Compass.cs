@@ -69,6 +69,8 @@ public class Compass : Object
 
     public override void SwitchOut()
     {
+        compasslevel[level].SetActive(false);
+        compass.SetActive(false);
         arrow.gameObject.SetActive(false);
     }
 

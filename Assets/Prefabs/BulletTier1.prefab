@@ -446,8 +446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ac6965285d2ea438af4360fb6b0a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  Explosion: {fileID: 3392011157163441512, guid: 174ddd4e8279a4e9bbf80ba28f5f7e96, type: 3}
+  damage: 2
+  Explosion: {fileID: 1664624123988508080, guid: 7249f6f45d7445243a1662eca547a65f, type: 3}
 --- !u!1 &8819257630863575537
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,11 @@ public class Compass : Object
     public int oreTargeted = 0;
 
     [SerializeField] GameObject test;
+
+
+    [SerializeField] GameObject radarPanel;
+    [SerializeField] GameObject[] ressourcesUI;
+
     public void Awake()
     {
         uns = UtilitiesStatic.GetUNS();
@@ -21,7 +26,8 @@ public class Compass : Object
     public void Update()
     {
         arrow.position = new Vector3(transform.position.x, transform.position.y, arrow.position.z);
-        coordinates.text = (uns.player.positionOffset.x + levelCreator.tilePlayerIsOn.position.x).ToString() + " | " + (uns.player.positionOffset.y + levelCreator.tilePlayerIsOn.position.y).ToString();
+        coordinates.text = levelCreator.GetStringPositionOffseted(levelCreator.tilePlayerIsOn.position.x, levelCreator.tilePlayerIsOn.position.y);
+        //coordinates.text = (levelCreator.positionOffset.x + levelCreator.tilePlayerIsOn.position.x).ToString() + " | " + (levelCreator.positionOffset.y + levelCreator.tilePlayerIsOn.position.y).ToString();
     }
 
     public void FixedUpdate()
@@ -60,6 +66,7 @@ public class Compass : Object
         {
             arrow.gameObject.SetActive(false);
         }
+        UpdateOreTargeted();
     }
 
     public override void SwitchIn()
@@ -87,5 +94,24 @@ public class Compass : Object
     public void ChangeOreTargeted(int oretype)
     {
         oreTargeted = oretype;
+    }
+
+    public void OnEnable()
+    {
+        radarPanel.SetActive(true);
+    }
+
+    public void OnDisable()
+    {
+        radarPanel.SetActive(false);
+    }
+
+    public void UpdateOreTargeted()
+    {
+        ressourcesUI[0].SetActive(false);
+        ressourcesUI[1].SetActive(false);
+        ressourcesUI[2].SetActive(false);
+        ressourcesUI[3].SetActive(false);
+        ressourcesUI[oreTargeted].SetActive(true);
     }
 }

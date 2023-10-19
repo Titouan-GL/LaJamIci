@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Victory : MonoBehaviour
 {
-    public GameObject boss;
+    public EnnemyFollow boss;
     public MenuOpen victoryScreen;
     public MenuOpen defeatScreen;
     public PlayerController playerController;
@@ -21,7 +21,7 @@ public class Victory : MonoBehaviour
             victoryScreen.OpenSelf();
             this.enabled = false;
         }
-        else if (boss.gameObject == null)
+        else if (boss.life <= 0)
         {
             timer -= Time.deltaTime;
         }
@@ -30,6 +30,7 @@ public class Victory : MonoBehaviour
             defeatScreen.gameObject.SetActive(true);
             defeatScreen.OpenSelf();
             this.enabled = false;
+            playerController.Save();
         }
 
 

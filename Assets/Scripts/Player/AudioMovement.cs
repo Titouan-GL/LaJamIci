@@ -5,16 +5,22 @@ using UnityEngine;
 public class AudioMovement : MonoBehaviour
 {
     public AudioSource movementSound;
+    private UtilitiesNonStatic uns;
+
+    private void Awake()
+    {
+        uns = UtilitiesStatic.GetUNS();
+    }
 
     void FixedUpdate()
     {
-        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        if (uns.player.isMoving)
         {
-            movementSound.volume = Mathf.Lerp(movementSound.volume, 1, 0.2f);
+            movementSound.volume = Mathf.Lerp(movementSound.volume, uns.soundVolume, 0.2f);
         }
         else
         {
-            movementSound.volume = Mathf.Lerp(movementSound.volume, 0, 0.2f);
+            movementSound.volume = Mathf.Lerp(movementSound.volume, uns.soundVolume, 0.2f);
         }
     }
 }

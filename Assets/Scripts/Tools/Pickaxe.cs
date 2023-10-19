@@ -16,7 +16,6 @@ public class Pickaxe : Object
 
     private bool isReloading;
     public AudioSource audioSource;
-    public AudioClip whooshAudioClip;
     public void Awake(){
         hitbox.SetActive(false);
     }
@@ -61,7 +60,6 @@ public class Pickaxe : Object
         if (!isReloading)
         {
             reloadTime = reloadTimeMax[level];
-            audioSource.PlayOneShot(whooshAudioClip);
             PickaxeAnim.Play("PickaxeAttack");
             isReloading = true;
         }

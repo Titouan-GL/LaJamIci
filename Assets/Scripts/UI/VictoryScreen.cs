@@ -11,4 +11,9 @@ public class VictoryScreen : MonoBehaviour
         // Load the specified scene by its name.
         SceneManager.LoadScene(0);
     }
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
+    }
 }

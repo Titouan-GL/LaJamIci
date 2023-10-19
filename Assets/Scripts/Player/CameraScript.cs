@@ -7,10 +7,12 @@ public class CameraScript : MonoBehaviour
     public AnimationCurve curve;
     public float shakeDuration = 0.2f;
     private Quaternion intialRotation;
+    private UtilitiesNonStatic uns;
 
     private void Awake()
     {
         intialRotation = transform.localRotation;
+        uns = UtilitiesStatic.GetUNS();
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -34,7 +36,7 @@ public class CameraScript : MonoBehaviour
 
         while(elapsedTime < shakeDuration){
             elapsedTime += Time.deltaTime;
-            float strength = curve.Evaluate(elapsedTime/shakeDuration) * power;
+            float strength = curve.Evaluate(elapsedTime/shakeDuration) * power *2* uns.shakeIntensity;
             transform.localPosition = startPosition + Random.insideUnitSphere * strength;
             yield return null; 
         }

@@ -32,6 +32,7 @@ public class Rifle : Object
     public AudioSource audioSource;
     public AudioClip[] shootingAudioClip;
     public AudioClip reloadAudioClip;
+    public AudioClip noAmmoSound;
 
     float pushbackDuration = 0.2f;
 
@@ -113,8 +114,14 @@ public class Rifle : Object
             GameObject go2 = Instantiate(bulletObject[level], endRifle.position, Quaternion.Euler(endRifle.rotation.eulerAngles));
             go2.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             cam.Shake();
-            reloadTime = reloadTimeMax[level];
             StartCoroutine(PushBack());
+            reloadTime = reloadTimeMax[level];
+            currentAmmo -= 1;
+        }
+        else if(reloadTime <= 0 && !isReloading && currentAmmo <= 0)
+        {
+            audioSource.PlayOneShot(noAmmoSound);
+            reloadTime = reloadTimeMax[level];
             currentAmmo -= 1;
         }
     }

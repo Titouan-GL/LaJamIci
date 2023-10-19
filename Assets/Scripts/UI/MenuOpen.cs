@@ -23,16 +23,18 @@ public class MenuOpen : MonoBehaviour
 
     public void Update()
     {
-        mUIs.SetCurrentMenu(menuIndex);
+        if(mUIs != null) mUIs.SetCurrentMenu(menuIndex);
     }
 
     public void CloseSelf()
     {
+        Time.timeScale = 1;
         StartCoroutine(Close());
     }
 
     private IEnumerator Open()
     {
+        Time.timeScale = 1;
         StopCoroutine(Close());
         while (rectTransform.localScale.x < 1 || rectTransform.localScale.y < 1)
         {
@@ -47,6 +49,7 @@ public class MenuOpen : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         rectTransform.localScale = new Vector3(1, 1, 1);
+        Time.timeScale = 0;
     }
 
     private IEnumerator Close()

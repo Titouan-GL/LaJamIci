@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]  private List<Zone> zones = new List<Zone>();
     private Vector2Int[] zonesPlacements;
 
+    [HideInInspector] public Vector2Int positionOffset;
     public enum RessourcesType
     {
         Dirt,
@@ -42,6 +44,8 @@ public class LevelCreator : MonoBehaviour
 
     void Awake()
     {
+        positionOffset = new Vector2Int(Random.Range(0, 1000000), Random.Range(0, 100000));
+
         map = new LevelTile[mapSize][];
 
         for (int i = 0; i < mapSize; i++)
@@ -256,6 +260,18 @@ public class LevelCreator : MonoBehaviour
         }
     }
 
+    public string GetStringPositionOffseted(int x = 0, int y = 0)
+    {
+        Vector2Int newPos = positionOffset + new Vector2Int(x, y);
+        return (newPos.x/10000).ToString("00") + "°" + ((newPos.x / 100) % 100).ToString("00") + "’" + (newPos.x % 100).ToString("00") + "’’N, " +
+            (newPos.y / 10000).ToString("00") + "°" + ((newPos.y / 100) % 100).ToString("00") + "’" + (newPos.y % 100).ToString("00") + "’’E";
+    }
+
+    public string GetArtefactPosition(int i)
+    {
+        List<Vector2Int> keysList = new List<Vector2Int>(artefactsTiles.Keys);
+        return GetStringPositionOffseted(keysList[i].x, keysList[i].y);
+    }
     public void GetArtefact(Vector2 position)
     {
         Vector2Int index = new Vector2Int((int)(position.x + 0.1f), (int)(position.y + 0.1f));

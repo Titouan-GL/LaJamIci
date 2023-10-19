@@ -10,6 +10,9 @@ public class MainUIScript : MonoBehaviour
     [SerializeField] MenuOpen logsMenu;
     [SerializeField] MenuOpen optionMenu;
 
+    [SerializeField] MenuOpen logDisplayed;
+    [SerializeField] MenuOpen[] settings;
+
     private int currentMenu = 0;
 
 
@@ -18,7 +21,6 @@ public class MainUIScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Craft") || Input.GetButtonDown("Cancel") || Input.GetButtonDown("Logs"))
         {
-            Debug.Log(currentMenu);
             if(playerController.enabled == false)
             {
                 playerController.enabled = true;
@@ -27,6 +29,8 @@ public class MainUIScript : MonoBehaviour
                     if (craftMenu.gameObject.activeSelf) craftMenu.CloseSelf();
                     if (logsMenu.gameObject.activeSelf) logsMenu.CloseSelf();
                     if (optionMenu.gameObject.activeSelf) optionMenu.CloseSelf();
+                    CloseLogs();
+                    CloseSettings();
                     currentMenu = 0;
                 }
             }
@@ -65,6 +69,19 @@ public class MainUIScript : MonoBehaviour
     public void SetCurrentMenu(int m)
     {
         currentMenu = m;
+    }
+
+    public void CloseLogs()
+    {
+        if (logDisplayed.gameObject.activeSelf) logDisplayed.CloseSelf();
+    }
+
+    public void CloseSettings()
+    {
+        foreach(MenuOpen m in settings)
+        {
+            if (m.gameObject.activeSelf) m.CloseSelf();
+        }
     }
 
 }

@@ -12,12 +12,19 @@ public class EnnemyFollow : MonoBehaviour
     public  float width = 2f;
     public float life = 20;
     [HideInInspector]  public float speed = 3f;
+    [SerializeField] Animator animator;
+    public AudioClip explosionSound;
+    private AudioSource audioSource;
+    public GameObject explosion;
+
+    [HideInInspector]public bool boss = false;
 
     void Awake()
     {
         uns = UtilitiesStatic.GetUNS();
         levelCreator = uns.levelCreator;
         destination = transform.position;
+        audioSource = uns.playerAudioSource;
     }
 
     private void Start()
@@ -102,8 +109,10 @@ public class EnnemyFollow : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         life -= amount;
-        if (life <= 0)
+        if (life <= 0 && boss == false)
         {
+            audioSource.PlayOneShot(explosionSound);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
